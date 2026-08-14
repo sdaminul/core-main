@@ -1,0 +1,139 @@
+.nexus-signup {
+  min-height: calc(100vh - 165px);
+  background: var(--cv-signup-bg);
+  color: var(--cv-signup-text);
+}
+.nexus-signup .nexus-header {
+  border-bottom: 1px solid var(--cv-slate-800);
+}
+.nexus-signup .nexus-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--cv-slate-800);
+  color: #fb923c;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nexus-signup .nexus-panel {
+  background-color: var(--cv-nav-bg) !important;
+  border: 1px solid var(--cv-border-2) !important;
+  border-radius: 20px;
+}
+.nexus-signup .nexus-panel.card {
+  padding: 40px 40px;
+}
+.nexus-signup .input-group-text {
+  background: var(--cv-input-group-bg);
+  border: 1px solid var(--cv-border-11);
+  color: #94a3b8;
+}
+.nexus-signup .btn-orange {
+  background-color: #f97316;
+  border-color: #f97316;
+  color: #fff;
+  font-weight: 600;
+}
+.nexus-signup .btn-orange:hover {
+  background-color: #ea580c;
+  border-color: #ea580c;
+  color: #fff;
+}
+.nexus-signup a.link-orange {
+  color: #fb923c;
+  text-decoration: none;
+}
+.nexus-signup a.link-orange:hover {
+  text-decoration: underline;
+}
+.nexus-signup .role-card {
+  background: var(--cv-role-card-bg);
+  border: 1px solid var(--cv-border-11);
+  border-radius: 15px;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s;
+}
+.nexus-signup .role-card:hover {
+  border-color: rgba(251, 146, 60, 0.6);
+  background: var(--cv-input-group-bg);
+}
+.icow {
+  width: 25px;
+  height: 25px;
+}
+.nexus-signup .role-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--cv-slate-800);
+  color: var(--cv-slate-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nexus-signup .text-muted-slate {
+  color: #94a3b8;
+}
+.nexus-signup .step-label-active {
+  color: #fb923c;
+}
+.nexus-signup .step-label-inactive {
+  color: #64748b;
+}
+.nexus-signup .form-check-input:checked {
+  background-color: #f97316;
+  border-color: #f97316;
+}
+.nexus-signup .invalid-feedback {
+  color: #f87171;
+}
+.nexus-signup .section-eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+.ouegsa {
+  background-color: var(--cv-surface-2);
+  border: 1px solid var(--cv-border-1);
+  border-radius: 9px;
+  padding: 8px 12px;
+}
+.ouegsa:open {
+  border-color: #F97316 !important;
+  box-shadow: 0 0 0 0.2rem rgba(249, 115, 22, 0.25);
+}
+.checkpanel {
+  background-color: var(--cv-nav-bg) !important;
+  border: 1px solid var(--cv-border-2) !important;
+  border-radius: 9px;
+  padding: 10px 15px 9px 15px;
+}
+.poeyx {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-size: 20px;
+}
+.authform .input-group-text {
+  border: 0px;
+  background: transparent;
+  position: absolute;
+  z-index: 99;
+}
+.text-xs {
+  font-size: .8rem;
+}
+.authform .input-group-text i {
+  font-size: 18px;
+  margin-top: 2px;
+}
+.authform .form-control {
+  border-top-left-radius: 9px !important;
+  border-bottom-left-radius: 9px !important;
+  padding-left: 38px;
+}
