@@ -858,6 +858,9 @@ thead.table-light tr {
     align-items: center;
     gap: 4px;
   }
+  .quote-card .quote-row .ship-scroll {
+    display: contents;
+  }
   .quote-card .quote-row .flex-mob {
     display: contents;
   }
@@ -2133,6 +2136,37 @@ hr {
   top: -6px;
   right: -9px;
 }
+.no-wrap td, .no-wrap th {
+  white-space: nowrap;
+}
+.no-wrap {
+  white-space: nowrap;
+}
+.next-step-title {
+  display: flex;
+  align-items: center;
+}
+.next-step-info {
+  cursor: pointer;
+}
+.next-step-tooltip .tooltip-inner {
+  text-align: left;
+  padding: 0.6rem;
+}
+.next-step-tooltip .next-step-msg {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.44;
+}
+.next-step-tooltip .next-step-meta {
+  font-size: 0.76rem;
+  opacity: 0.85;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.next-step-info i {
+  font-size: 17px;
+}
 @media (max-width: 767.98px) {
   .band-name {
     display: none;
@@ -2152,13 +2186,30 @@ hr {
   }
 }
 @media (max-width: 767.98px) {
+  .next-step-title {
+    gap: 3px;
+  }
+  .tool-legend {
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
   .quotes-head {
     display: none !important;
   }
   .quote-card .quote-row {
-    display: flex;
+    display: block;
     flex-direction: column;
     gap: 10px;
+  }
+  .quote-card .quote-row .ship-scroll {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 0px;
+  }
+  .quote-card .quote-row .ship-scroll .flex-mob {
+    flex: unset !important;
   }
   .quote-card .quote-row .flex-mob {
     display: flex;
@@ -2166,13 +2217,14 @@ hr {
     width: 100%
   }
   .quote-card .quote-row .flex-mob > div {
-    flex: 0 0 68%;
+    flex: 0 1 68%;
   }
   .quote-card .quote-row .exp-quote {
     display: flex;
     align-items: center;
     gap: 6px;
     width: 100%;
+    margin-bottom: 10px;
   }
   .quote-card .quote-row .exp-quote i {
     font-size: 30px;
@@ -2276,5 +2328,28 @@ hr {
   }
   .noti-drop.dropdown {
     position: unset !important;
+  }
+  .action-card {
+    margin-bottom: 0px;
+  }
+  .action-card .action-font {
+    display: none;
+  }
+  .action-card .action-desc {
+    margin-left: 0px !important
+  }
+  .gap-8 {
+    --bs-gutter-y: 0.5rem;
+    --bs-gutter-x: 0.5rem;
+  }
+  .action-card .card-body {
+    padding: 13px !important
+  }
+  .action-desc p {
+    font-weight: 400 !important;
+    font-size: 12.4px;
+  }
+  .gap-8.row {
+    margin-bottom: 20px
   }
 }

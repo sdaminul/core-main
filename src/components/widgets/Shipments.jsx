@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Button, ProgressBar, Row, Col, Card, Modal, Table, Tabs, Tab, Badge, Collapse } from "react-bootstrap";
+import { Button, ProgressBar, Row, Col, Card, Modal, Table, Tabs, Tab, Badge, Collapse, OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   getShipmentTriggers,
   getToolMap,
@@ -578,7 +578,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           className="expand-btn position-relative"
                         >
                           <i className="ri-check-double-line"></i>
-                          <span class="incom-task">3</span>
+                          <span className="incom-task">3</span>
                         </Button>
                       </div>
                     </div>
@@ -645,7 +645,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <div>
                             <div className="d-flex">
                               <h4>{shipment.reference}</h4>
-                              <div class="d-flex">
+                              <div className="d-flex">
                                 <div className="tracking-status-name my-0 mx-2">{shipment.mode}</div>
                                 <div className="tracking-status-name my-0">{shipment.status}</div>
                               </div>
@@ -747,15 +747,24 @@ function Shipments({ initialFilter = "ALL" }) {
                         <div className="next-steps-grid">
                           {triggers.map((trigger) => (
                             <div key={trigger.key} className={`next-step-card state-${trigger.state}`}>
-                              <div className="next-step-title">
+<div className="next-step-title">
                                 <i className={trigger.icon}></i>
-                                <span>{trigger.title}</span>
-                                <span className={`ms-auto ${STATE_PILL[trigger.state]}`}>
-                                  {STATE_LABEL[trigger.state]}
-                                </span>
-                              </div>
-                              <div className="next-step-msg">{trigger.message}</div>
-                              <div className="next-step-meta">{trigger.meta}</div>
+                                  <span>{trigger.title}</span>
+                                  <OverlayTrigger
+                                    placement="top"
+                                    overlay={
+                                      <Tooltip id={`tooltip-${trigger.key}`} className="next-step-tooltip">
+                                        <div className="next-step-msg">{trigger.message}</div>
+                                        <div className="next-step-meta">{trigger.meta}</div>
+                                      </Tooltip>
+                                    }
+                                  >
+                                    <div className="next-step-info"><i className="ri-information-2-fill"></i></div>
+                                  </OverlayTrigger>
+                                  <span className={`ms-auto ${STATE_PILL[trigger.state]}`}>
+                                    {STATE_LABEL[trigger.state]}
+                                  </span>
+                                </div>
                               {(trigger.cta || trigger.secondaryCta) && (
                                 <div className="next-step-actions">
                                   {trigger.cta && (

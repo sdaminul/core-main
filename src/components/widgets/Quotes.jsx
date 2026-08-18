@@ -341,10 +341,11 @@ export default function Quotes() {
                     </div>
                   </div>
                 </div>
+                <div className="ship-scroll">
                 <div className="flex-mob">
                   <div className="flex-first">
                     <div>BOOKING PERIOD</div>
-                    <div>{r.period}</div>
+                    <div className="no-wrap">{r.period}</div>
                   </div>
                   <div className="flex-last">
                     <div>SERVICE</div>
@@ -370,6 +371,7 @@ export default function Quotes() {
                     <div>CREATED</div>
                     <div>{r.created}</div>
                   </div>
+                </div>
                 </div>
               </div>
               <Progress step={r.step} />

@@ -100,10 +100,10 @@ function Dnd() {
 
           <hr className="mt-4 mb-4"/>
 
-          <h6 className="mb-4 fw-bold">D&amp;D Records</h6>
+          <h6 className="mb-3 fw-bold">D&amp;D Records</h6>
 
-          <Table responsive bordered className="mb-0 align-middle">
-            <thead className="table-light">
+          <Table responsive bordered className="mb-0 ship-contanier tool-map-table table no-wrap">
+            <thead>
               <tr>
                 <th>Shipment</th>
                 <th>Status</th>

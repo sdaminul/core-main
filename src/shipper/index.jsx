@@ -23,10 +23,10 @@ function Shipper() {
   const keyData = [
     { id: 1, icon: 'ship-2-line', value: '44', title: 'Ocean Shipments', color: 'purple', action: 'ocean' },
     { id: 2, icon: 'plane-line', value: '22', title: 'Air Shipments', color: 'blue', action: 'air' },
-    { id: 3, icon: 'alert-line', value: '35', title: 'Pending Actions', color: 'red', action: 'pending' },
+    { id: 3, icon: 'money-dollar-box-line', value: '12', title: 'Quotes', color: 'acent', action: 'quotes' },
     { id: 4, icon: 'shield-check-line', value: '05', title: 'Delivered (30D)', color: 'green', action: 'delivered' },
     { id: 5, icon: 'alarm-warning-line', value: '75', title: 'D&D At Risk', color: 'warning', action: 'dnd' },
-    { id: 6, icon: 'money-dollar-box-line', value: '12', title: 'Quotes', color: 'acent', action: 'quotes' },
+    { id: 6, icon: 'alert-line', value: '35', title: 'Pending Actions', color: 'red', action: 'pending' },
   ];
 
   const handleKeyCardClick = (action) => {
@@ -104,8 +104,8 @@ function Shipper() {
             <div className="card-title">Quick Actions</div>
             <p className="text-muted-foreground">Start the next operational action directly from this panel.</p>
 
-            <Row>
-              <Col lg={2} md={6} xs={6}>
+            <Row className="gap-8">
+              <Col lg={2} md={4} xs={4}>
                 <div className="card action-card" onClick={() => handleActionClick('track')}>
                   <div className="card-body py-3">
                     <div className="d-flex align-items-center">
@@ -120,7 +120,7 @@ function Shipper() {
                   </div>
                 </div>
               </Col>
-              <Col lg={2} md={6} xs={6}>
+              <Col lg={2} md={4} xs={4}>
                 <div className="card action-card" onClick={() => handleActionClick('demdet')}>
                   <div className="card-body py-3">
                     <div className="d-flex align-items-center">
@@ -135,7 +135,7 @@ function Shipper() {
                   </div>
                 </div>
               </Col>
-              <Col lg={2} md={6} xs={6}>
+              <Col lg={2} md={4} xs={4}>
                 <div className="card action-card" onClick={() => handleActionClick('request')}>
                   <div className="card-body py-3">
                     <div className="d-flex align-items-center">
@@ -150,7 +150,7 @@ function Shipper() {
                   </div>
                 </div>
               </Col>
-              <Col lg={2} md={6} xs={6}>
+              <Col lg={2} md={4} xs={4}>
                 <div className="card action-card" onClick={() => handleActionClick('protect')}>
                   <div className="card-body py-3">
                     <div className="d-flex align-items-center">
@@ -165,7 +165,7 @@ function Shipper() {
                   </div>
                 </div>
               </Col>
-              <Col lg={2} md={6} xs={6}>
+              <Col lg={2} md={4} xs={4}>
                 <div className="card action-card" onClick={() => handleActionClick('manage')}>
                   <div className="card-body py-3">
                     <div className="d-flex align-items-center">
