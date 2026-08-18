@@ -465,34 +465,79 @@ ol.breadcrumb {
     margin-bottom: 10px;
 }
 .card.card-purple {
-    background: #3A1E6A;
-    background: linear-gradient(147deg,#3A1E6A 0%, #1E1F2C 55%, #1E1F2C 100%);
-    border: 1px solid #413777
+  background: #3A1E6A;
+  background: linear-gradient(147deg,#3A1E6A 0%, #1E1F2C 55%, #1E1F2C 100%);
+  border: 1px solid #413777
 }
 .card.card-blue {
-    background: #10424B;
-    background: linear-gradient(147deg,#10424B 0%, #0D3544 55%, #08233B 100%);
-    border: 1px solid #235C70
+  background: #10424B;
+  background: linear-gradient(147deg,#10424B 0%, #0D3544 55%, #08233B 100%);
+  border: 1px solid #235C70
 }
 .card.card-red {
-    background: #4f2020;
-    background: linear-gradient(147deg, #4f2020 0%, #371d1d 55%, #261818 100%);
-    border: 1px solid #763131;
+  background: #4f2020;
+  background: linear-gradient(147deg, #4f2020 0%, #371d1d 55%, #261818 100%);
+  border: 1px solid #763131;
 }
 .card.card-green {
-    background: #1C4B2B;
-    background: linear-gradient(147deg,#1C4B2B 0%, #0A2533 55%, #0A2533 100%);
-    border: 1px solid #396F49
+  background: #1C4B2B;
+  background: linear-gradient(147deg,#1C4B2B 0%, #0A2533 55%, #0A2533 100%);
+  border: 1px solid #396F49
 }
 .card.card-acent {
-    background: #0A3C80;
-    background: linear-gradient(147deg,#0A3C80 0%, #0C2547 55%, #061631 100%);
-    border: 1px solid rgba(255,255,255,.17)
+  background: #0A3C80;
+  background: linear-gradient(147deg,#0A3C80 0%, #0C2547 55%, #061631 100%);
+  border: 1px solid rgba(255,255,255,.17)
 }
 .card.card-warning {
-    background: #532F25;
-    background: linear-gradient(147deg,#532F25 0%, #3E2828 55%, #1F1F2D 100%);
-    border: 1px solid #7D4D34
+  background: #532F25;
+  background: linear-gradient(147deg,#532F25 0%, #3E2828 55%, #1F1F2D 100%);
+  border: 1px solid #7D4D34
+}
+html.light-mode .card.card-purple {
+  background: rgba(58, 30, 106, .2);
+  border: 1px solid rgba(58, 30, 106, .2)
+}
+html.light-mode .card.card-blue {
+  background: rgba(16, 66, 75, .2);
+  border: 1px solid rgba(16, 66, 75, .2);
+}
+html.light-mode .card.card-red {
+  background: rgba(170, 0, 0, .2);
+  border: 1px solid rgba(170, 0, 0, .2);
+}
+html.light-mode .card.card-green {
+  background: rgba(28, 75, 43, .2);
+  border: 1px solid rgba(28, 75, 43, .2);
+}
+html.light-mode .card.card-acent {
+  background: rgba(10, 60 ,128, .2);
+  border: 1px solid rgba(10, 60 ,128, .2);
+}
+html.light-mode .card.card-warning {
+  background: rgba(255, 122, 41, .2);
+  border: 1px solid rgba(255, 122, 41, .2);
+}
+html.light-mode .card.card-purple.key-card h3 {
+  color: #553082;
+}
+html.light-mode .card.card-blue.key-card h3 {
+  color: #185E66;
+}
+html.light-mode .card.card-acent.key-card h3 {
+  color: #204483;
+}
+html.light-mode .card.card-green.key-card h3 {
+  color: #285F34;
+}
+html.light-mode .card.card-warning.key-card h3 {
+  color: #714028;
+}
+html.light-mode .card.card-red.key-card h3 {
+  color: #b82020;
+}
+html.light-mode .key-card p {
+  color: #444e5b !important;
 }
 .icofont i {
     font-size: 22px;
