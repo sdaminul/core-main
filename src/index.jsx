@@ -45,6 +45,66 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+// ─── The 8 pillars at the CORE of every shipment ───
+const PILLARS = [
+  {
+    id: "intel",
+    name: "coreINTEL",
+    icon: "ri-radar-line",
+    desc: "Container visibility & port analytics",
+    quote: "Real-time visibility across containers, ports, and critical shipment milestones.",
+  },
+  {
+    id: "bid",
+    name: "coreBID",
+    icon: "ri-auction-line",
+    desc: "Structured freight and services bidding",
+    quote: "Objective freight procurement and vendor services through transparent, competitive bidding.",
+  },
+  {
+    id: "shield",
+    name: "coreSHIELD",
+    icon: "ri-shield-check-line",
+    desc: "Port to Door insurance coverage",
+    quote: "Mitigate financial exposure from cargo risk, delays, and ancillary costs, with real time assessment and payout.",
+  },
+  {
+    id: "split",
+    name: "coreSPLIT",
+    icon: "ri-split-cells-horizontal",
+    desc: "Master BL & inventory consolidation",
+    quote: "Transform master bills of lading into shipment-level inventory intelligence and reporting.",
+  },
+  {
+    id: "clear",
+    name: "coreCLEAR",
+    icon: "ri-file-check-line",
+    desc: "Asycuda workflow & preparation ",
+    quote: "Prepare, validate, streamline and management of customs documentation before submission.",
+  },
+  {
+    id: "sync",
+    name: "coreSYNC",
+    icon: "ri-team-line",
+    desc: "Collaborate across teams & stakeholders",
+    quote: "Connect every stakeholder, document, and action across the shipment lifecycle.",
+  },
+  {
+    id: "audit",
+    name: "coreAUDIT",
+    icon: "ri-file-search-line",
+    desc: "Manage rates, charges & contracts",
+    quote: "Compare and validate rates, charges, and contractual terms against the shipment record.",
+  },
+  {
+    id: "trust",
+    name: "coreTRUST",
+    icon: "ri-fingerprint-line",
+    desc: "Document integrity & data verification",
+    quote: "Detect document inconsistencies and strengthen data integrity across every shipment.",
+  },
+];
+
 const FEATURES = [
   { Icon: Ship, title: "Ocean Freight", desc: "FCL, LCL & multimodal in a unified booking flow." },
   { Icon: Plane, title: "Air Cargo", desc: "AWB tracking with real-time carrier visibility." },
@@ -219,6 +279,16 @@ export default function App() {
   const [activeServiceTab, setActiveServiceTab] = useState("allservices");
   const [email, setEmail] = useState("");
   const [selectedCarrier, setSelectedCarrier] = useState("");
+  const [activePillar, setActivePillar] = useState(PILLARS[0].id);
+  const [pillarAutoPlay, setPillarAutoPlay] = useState(true);
+
+  const pillarIndex = Math.max(0, PILLARS.findIndex((p) => p.id === activePillar));
+  const pillar = PILLARS[pillarIndex];
+
+  const pickPillar = (id) => {
+    setPillarAutoPlay(false);
+    setActivePillar(id);
+  };
 
   const tabs = [
     { name: "Track", icon: "ri-map-pin-line" },
@@ -243,6 +313,18 @@ export default function App() {
       document.body.classList.remove('home');
     };
   }, []);
+
+  // Auto-rotate the pillar spotlight until the visitor takes over
+  useEffect(() => {
+    if (!pillarAutoPlay) return;
+    const id = setInterval(() => {
+      setActivePillar((current) => {
+        const i = PILLARS.findIndex((p) => p.id === current);
+        return PILLARS[(i + 1) % PILLARS.length].id;
+      });
+    }, 4200);
+    return () => clearInterval(id);
+  }, [pillarAutoPlay]);
 
   // Render content based on active tab
   const renderTabContent = () => {
@@ -483,20 +565,10 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            One platform to<br />
-            <span className="text-gradient">manage it all.</span>
+            8 pillars at the CORE of every shipment, 
+            <span className="text-gradient"> built into one platform</span>
           </motion.h1>
-          
-          <motion.p 
-            className="lead"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Manage quotes, tracking, documentation, billing, and team collaboration in one
-            powerful platform built for modern freight forwarders.
-          </motion.p>
-          
+
           <motion.div 
             className="cv-hero-cta"
             initial={{ opacity: 0, y: 20 }}
@@ -509,10 +581,76 @@ export default function App() {
             <Button className="btn-ghost">Watch demo</Button>
           </motion.div>
 
+          {/* ── 8 PILLARS: console (icon nav + spotlight stage) ── */}
+          <motion.div
+            className="core-console glass"
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="core-console-bar">
+              <span className="core-console-dots" aria-hidden="true">
+                <i /><i /><i />
+              </span>
+              <span className="core-console-label">
+                <span className="core-live" /> Unified Management — 8 pillars
+              </span>
+              <span className="core-console-count">
+                {String(pillarIndex + 1).padStart(2, "0")}<em>/08</em>
+              </span>
+            </div>
+
+            <div className="core-nav" role="tablist" aria-label="The 8 CORE pillars">
+              {PILLARS.map((p, i) => (
+                <motion.button
+                  key={p.id}
+                  role="tab"
+                  aria-selected={activePillar === p.id}
+                  title={p.name}
+                  className={`core-nav-item ${activePillar === p.id ? "active" : ""}`}
+                  onClick={() => pickPillar(p.id)}
+                  onMouseEnter={() => pickPillar(p.id)}
+                  onFocus={() => pickPillar(p.id)}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.5 + i * 0.05 }}
+                >
+                  <span className="core-nav-ic"><i className={p.icon}></i></span>
+                  <span className="core-nav-name">{p.name.replace("core", "")}</span>
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="core-stage">
+              <motion.div
+                key={pillar.id}
+                className="core-stage-inner"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="core-stage-ic"><i className={pillar.icon}></i></div>
+                <div className="core-stage-copy">
+                  <h3 className="core-stage-title">
+                    <span className="pillar-core">core</span>{pillar.name.replace("core", "")}
+                  </h3>
+                  <p className="core-stage-desc">{pillar.desc}</p>
+                  <p className="core-stage-quote">“{pillar.quote}”</p>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="pillar-rail" aria-hidden="true">
+              {PILLARS.map((p, i) => (
+                <span key={p.id} className={`pillar-rail-dot ${i === pillarIndex ? "on" : ""}`} />
+              ))}
+            </div>
+          </motion.div>
+
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
           >
             <Row className="cv-stats justify-content-center">
               {[

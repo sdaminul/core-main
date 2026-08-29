@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { Button, ProgressBar, Row, Col, Card, Modal, Table, Tabs, Tab, Badge, Collapse, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, ProgressBar, Row, Col, Card, Modal, Table, Tabs, Tab, Badge, Collapse, OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import {
   getShipmentTriggers,
   getToolMap,
   TOOL_STATUS_META,
 } from "./shipmentActions";
+import ActionsModal from "../ui/ActionsModal";
 
 function Shipments({ initialFilter = "ALL" }) {
   const [show, setShow] = useState(false);
@@ -25,6 +26,17 @@ function Shipments({ initialFilter = "ALL" }) {
   const [, setActionModal] = useState(null); // set by openAction when a next-step CTA is clicked
   const [openToolMaps, setOpenToolMaps] = useState({}); // shipmentId -> bool
   const [toolStatusFilter, setToolStatusFilter] = useState({}); // shipmentId -> status | null
+
+  // Quick-action modal (DemDet, etc.) opened from a shipment row's action buttons
+  const [actionModalShow, setActionModalShow] = useState(false);
+  const [actionTab, setActionTab] = useState("demdet");
+  const [actionShipment, setActionShipment] = useState(null);
+
+  const handleActionClick = (tabKey, shipment = null) => {
+    setActionTab(tabKey);
+    setActionShipment(shipment);
+    setActionModalShow(true);
+  };
 
   const toggleToolMap = (id) =>
     setOpenToolMaps((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -494,38 +506,18 @@ function Shipments({ initialFilter = "ALL" }) {
           <div className="page-title d-block d-lg-flex mt-0">
             <h5 className="mb-0 fw-bold">Shipments</h5>
             <div className="shipment-filters mb-lg-0 mt-ms-0 mt-3">
-              <div className="filter-tabs">
-                <button 
-                  className={`filter-tab ${activeFilter === "ALL" ? "active" : ""}`}
-                  onClick={() => setActiveFilter("ALL")}
-                >
-                  All Shipments
-                </button>
-                <button 
-                  className={`filter-tab ${activeFilter === "OCEAN" ? "active" : ""}`}
-                  onClick={() => setActiveFilter("OCEAN")}
-                >
-                  Ocean Shipments
-                </button>
-                <button 
-                  className={`filter-tab ${activeFilter === "AIR" ? "active" : ""}`}
-                  onClick={() => setActiveFilter("AIR")}
-                >
-                  Air Shipments
-                </button>
-                <button 
-                  className={`filter-tab ${activeFilter === "PENDING" ? "active" : ""}`}
-                  onClick={() => setActiveFilter("PENDING")}
-                >
-                  Pending Actions
-                </button>
-                <button 
-                  className={`filter-tab ${activeFilter === "DELIVERED" ? "active" : ""}`}
-                  onClick={() => setActiveFilter("DELIVERED")}
-                >
-                  Delivered (30D)
-                </button>
-              </div>
+              <Form.Select
+                className="filter-select mb-0"
+                aria-label="Filter shipments"
+                value={activeFilter}
+                onChange={(e) => setActiveFilter(e.target.value)}
+              >
+                <option value="ALL">All Shipments</option>
+                <option value="OCEAN">Ocean Shipments</option>
+                <option value="AIR">Air Shipments</option>
+                <option value="PENDING">Pending Actions</option>
+                <option value="DELIVERED">Delivered (30D)</option>
+              </Form.Select>
             </div>
           </div>
 
@@ -559,10 +551,12 @@ function Shipments({ initialFilter = "ALL" }) {
                         <Button 
                           variant="dark" 
                           size="sm" 
-                          className="expand-btn"
+                          className="expand-btn position-relative"
                           onClick={() => toggleExpand(shipment.id)}
                         >
                           <i className={`ri-arrow-${expandedShipment === shipment.id ? 'up' : 'down'}-s-line`}></i>
+                          
+                          <span className="incom-task">3</span>
                         </Button>
                         <Button 
                           variant="dark" 
@@ -575,10 +569,24 @@ function Shipments({ initialFilter = "ALL" }) {
                         <Button 
                           variant="dark" 
                           size="sm" 
-                          className="expand-btn position-relative"
+                          className="expand-btn"
                         >
                           <i className="ri-check-double-line"></i>
-                          <span className="incom-task">3</span>
+                        </Button>
+                        <Button 
+                          variant="dark" 
+                          size="sm" 
+                          className="expand-btn"
+                        >
+                          <i className="ri-user-add-line"></i>
+                        </Button>
+                        <Button
+                          variant="dark"
+                          size="sm"
+                          className="expand-btn"
+                          onClick={() => handleActionClick('demdet', shipment)}
+                        >
+                          <i className="ri-calendar-line"></i>
                         </Button>
                       </div>
                     </div>
@@ -896,6 +904,13 @@ function Shipments({ initialFilter = "ALL" }) {
           )}
         </Modal.Body>
       </Modal>
+
+      <ActionsModal
+        show={actionModalShow}
+        onHide={() => setActionModalShow(false)}
+        activeTab={actionTab}
+        shipment={actionShipment}
+      />
     </>
   );
 }

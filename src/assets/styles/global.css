@@ -1517,6 +1517,15 @@ hr {
   flex-wrap: wrap;
   gap: 12px;
 }
+.filter-select {
+  width: auto;
+  min-width: 190px;
+  padding: 8px 36px 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+}
 .filter-tabs {
   display: flex;
   gap: 8px;
@@ -1557,16 +1566,6 @@ hr {
 .shipments-list {
   margin-top: 20px;
 }
-.shipments-header {
-  display: grid;
-  grid-template-columns: 130px 130px 95px 120px 190px 120px 90px 150px 100px 100px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
 .shipment-item-wrapper {
   margin-bottom: 8px;
   border-left: 3px solid;
@@ -1591,10 +1590,20 @@ hr {
 .shipment-row:hover {
   background: var(--cv-hover-bg);
 }
+.shipments-header {
+  display: grid;
+  grid-template-columns: 200px 130px 90px 120px 180px 110px 80px 140px 90px 100px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
 @media (min-width: 768px) {
   .shipment-row {
     display: grid;
-    grid-template-columns: 130px 130px 95px 120px 190px 120px 90px 150px 100px 100px;
+    grid-template-columns: 200px 130px 90px 120px 180px 110px 80px 140px 90px 100px;
     align-items: center;
   }
   .shipment-row .ship-scroll {
@@ -2179,7 +2188,7 @@ hr {
   align-items: center;
   justify-content: center;
   top: -6px;
-  right: -9px;
+  left: -9px;
 }
 .no-wrap td, .no-wrap th {
   white-space: nowrap;
@@ -2396,5 +2405,20 @@ hr {
   }
   .gap-8.row {
     margin-bottom: 20px
+  }
+  .card.key-card {
+    margin-bottom: 12px !important
+  }
+  .card.key-card .card-body {
+    padding: 15px;
+  }
+  .cus-key-card.row {
+    --bs-gutter-x: .7rem;
+  }
+  .card.key-card .card-body .card-text p {
+    font-size: 14px;
+  }
+  .search-content.mb-4, .qaction.card {
+    margin-bottom: 12px !important
   }
 }

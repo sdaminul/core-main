@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Modal, Button, Form, Row, Col, Alert, ButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function ActionsModal({ activeTab = 'track', ...rest }) {
+function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
   const key = activeTab;
 
   const [direction, setDirection] = useState('IMPORT');
@@ -71,11 +71,17 @@ function ActionsModal({ activeTab = 'track', ...rest }) {
               <Row>
                 <Col lg={6}>
                   <Form.Label className="text-muted-foreground">Shipment <span className="text-danger">*</span></Form.Label>
-                  <Form.Select className="py-2">
-                    <option>Select Shipment</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <Form.Select className="py-2" defaultValue={shipment ? shipment.reference : ''} key={shipment ? shipment.reference : 'none'}>
+                    {shipment ? (
+                      <option value={shipment.reference}>{shipment.reference} — {shipment.carrier}</option>
+                    ) : (
+                      <>
+                        <option>Select Shipment</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </>
+                    )}
                   </Form.Select>
                 </Col>
                 <Col lg={6}>

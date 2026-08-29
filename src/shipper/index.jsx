@@ -84,9 +84,9 @@ function Shipper() {
       <div className="container">
         <BreadcrumbTitle pageTitle="Dashboard" currentPage="Dashboard" />
 
-        <Row>
+        <Row className="cus-key-card">
           {keyData.map((item) => (
-            <Col lg={2} md={4} xs={6} key={item.id}>
+            <Col lg={2} md={4} xs={4} key={item.id}>
               <div onClick={() => handleKeyCardClick(item.action)} style={{ cursor: 'pointer' }}>
                 <KeyCard 
                   icon={item.icon}
@@ -99,7 +99,7 @@ function Shipper() {
           ))}
         </Row>
 
-        <div className="card">
+        <div className="card qaction">
           <div className="card-body pb-0">
             <div className="card-title">Quick Actions</div>
             <p className="text-muted-foreground">Start the next operational action directly from this panel.</p>
@@ -115,21 +115,6 @@ function Shipper() {
                       <div className="action-desc ms-2">
                         <div className="">Track</div>
                         <p className="mb-0 text-muted-foreground">Track Shipments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={2} md={4} xs={4}>
-                <div className="card action-card" onClick={() => handleActionClick('demdet')}>
-                  <div className="card-body py-3">
-                    <div className="d-flex align-items-center">
-                      <div className="action-font">
-                        <i className="ri-calendar-line"></i>
-                      </div>
-                      <div className="action-desc ms-2">
-                        <div className="">DemDet</div>
-                        <p className="mb-0 text-muted-foreground">Manage DemDet</p>
                       </div>
                     </div>
                   </div>
