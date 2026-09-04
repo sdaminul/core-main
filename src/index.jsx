@@ -578,6 +578,7 @@ export default function App() {
             <a className="btn btn-primary py-2 px-4" href="login">
               Get Started <i className="ri-arrow-right-long-line"></i>
             </a>
+            <a href="#try" className="btn-ghost btn-outline-primary">Try Now</a>
             <Button className="btn-ghost">Watch demo</Button>
           </motion.div>
 
@@ -590,7 +591,7 @@ export default function App() {
           >
             <div className="core-console-bar">
               <span className="core-console-dots" aria-hidden="true">
-                <i /><i /><i />
+                <div style={{ width: "30px" }}></div>
               </span>
               <span className="core-console-label">
                 <span className="core-live" /> Unified Management — 8 pillars
@@ -670,51 +671,8 @@ export default function App() {
         </Container>
       </section>
 
-      {/* ═══ FEATURES ═══ */}
-      <section id="features" className="cv-section">
-        <Container>
-          <motion.div 
-            className="text-center mx-auto mb-5" 
-            style={{ maxWidth: 620 }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="cv-kicker">Everything you need</div>
-            <h2 className="cv-h2">Built for modern freight</h2>
-            <p className="cv-sublead">
-              From bookings to final delivery — every tool your logistics team needs, in one place.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-          >
-            <Row className="g-4">
-              {FEATURES.map(({ Icon, title, desc }, index) => (
-                <Col md={6} lg={4} key={title}>
-                  <motion.div 
-                    custom={index} 
-                    variants={fadeUp}
-                    className="feat-card"
-                  >
-                    <div className="feat-icon"><Icon size={20} /></div>
-                    <h3 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>{title}</h3>
-                    <p className="text-muted-c mt-2 mb-0" style={{ fontSize: 14, lineHeight: 1.6 }}>{desc}</p>
-                  </motion.div>
-                </Col>
-              ))}
-            </Row>
-          </motion.div>
-        </Container>
-      </section>
-
       {/* ═══ QUOTE ═══ */}
-      <section className="cv-section">
+      <section id="features" className="cv-section">
         <Container>
           <Row className="align-items-center g-5">
             <Col lg={6}>

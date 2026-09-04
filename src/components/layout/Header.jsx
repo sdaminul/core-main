@@ -47,30 +47,11 @@ function Header() {
                   <div className="all-noti">
                     <div className="noti-item">
                       <div className="noti-title">
-                        <div className="noti-name"><i className="ri-shield-check-line"></i><span>Delay Insurance</span></div>
+                        <div className="noti-name"><i className="ri-hourglass-2-fill"></i><span>Action Pending</span></div>
                         <div className="noti-for">CGVS2026001</div>
                       </div>
-                      <div className="noti-desc">The shipment has not departed yet, this is the best time to add delay insurance.</div>
-                      <button className="btn btn-primary btn-sm me-2 px-3">Get delay insurance</button>
-                      <button className="btn btn-outline-danger btn-sm px-3">Ignore</button>
-                    </div>
-                    <div className="noti-item">
-                      <div className="noti-title">
-                        <div className="noti-name"><i className="ri-truck-line"></i><span>3PL Services</span></div>
-                        <div className="noti-for">CGVS2026001</div>
-                      </div>
-                      <div className="noti-desc">The vessel has not arrived yet, request haulage, warehousing or customs brokerage.</div>
-                      <button className="btn btn-primary btn-sm me-2 px-3">Request services</button>
-                      <button className="btn btn-outline-danger btn-sm px-3">Ignore</button>
-                    </div>
-                    <div className="noti-item">
-                      <div className="noti-title">
-                        <div className="noti-name"><i className="ri-information-line"></i><span>Packing List</span></div>
-                        <div className="noti-for">CGVS2026001</div>
-                      </div>
-                      <div className="noti-desc">Line 4 weight mismatch vs BL</div>
-                      <button className="btn btn-primary btn-sm me-2 px-3">Resolve</button>
-                      <button className="btn btn-outline-danger btn-sm px-3">Ignore</button>
+                      <div className="noti-desc">There are <span class="text-primary fw-bold">3</span> actions pending. Please check and complete them.</div>
+                      <button className="btn btn-primary btn-sm me-2 px-3">Check now</button>
                     </div>
                   </div>
                 </Dropdown.Menu>

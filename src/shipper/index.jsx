@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import BreadcrumbTitle from '../components/layout/Breadcrumb';
 import KeyCard from '../components/ui/KeyCards';
 import ActionsModal from '../components/ui/ActionsModal';
-import { Image, Form, Row, Col } from 'react-bootstrap';
+import { Image, Form, Row, Col, Dropdown } from 'react-bootstrap';
 import BgImg from '../assets/images/bg-action.png';
 import Shipments from '../components/widgets/Shipments';
 import Dnd from '../components/widgets/Dnd';
@@ -99,77 +99,6 @@ function Shipper() {
           ))}
         </Row>
 
-        <div className="card qaction">
-          <div className="card-body pb-0">
-            <div className="card-title">Quick Actions</div>
-            <p className="text-muted-foreground">Start the next operational action directly from this panel.</p>
-
-            <Row className="gap-8">
-              <Col lg={2} md={4} xs={4}>
-                <div className="card action-card" onClick={() => handleActionClick('track')}>
-                  <div className="card-body py-3">
-                    <div className="d-flex align-items-center">
-                      <div className="action-font">
-                        <i className="ri-map-pin-line"></i>
-                      </div>
-                      <div className="action-desc ms-2">
-                        <div className="">Track</div>
-                        <p className="mb-0 text-muted-foreground">Track Shipments</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={2} md={4} xs={4}>
-                <div className="card action-card" onClick={() => handleActionClick('request')}>
-                  <div className="card-body py-3">
-                    <div className="d-flex align-items-center">
-                      <div className="action-font">
-                        <i className="ri-store-line"></i>
-                      </div>
-                      <div className="action-desc ms-2">
-                        <div className="">Request</div>
-                        <p className="mb-0 text-muted-foreground">New Request</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={2} md={4} xs={4}>
-                <div className="card action-card" onClick={() => handleActionClick('protect')}>
-                  <div className="card-body py-3">
-                    <div className="d-flex align-items-center">
-                      <div className="action-font">
-                        <i className="ri-shield-line"></i>
-                      </div>
-                      <div className="action-desc ms-2">
-                        <div className="">Protect</div>
-                        <p className="mb-0 text-muted-foreground">Cargo Protect</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={2} md={4} xs={4}>
-                <div className="card action-card" onClick={() => handleActionClick('manage')}>
-                  <div className="card-body py-3">
-                    <div className="d-flex align-items-center">
-                      <div className="action-font">
-                        <i className="ri-box-3-line"></i>
-                      </div>
-                      <div className="action-desc ms-2">
-                        <div className="">Manage</div>
-                        <p className="mb-0 text-muted-foreground">Manage Shipment</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </div>
-          <Image src={BgImg} alt="bg" className="bg-action" />
-        </div>
-
         <ActionsModal
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -178,9 +107,26 @@ function Shipper() {
 
         {/* This div will scroll into view when a KeyCard is clicked */}
         <div ref={componentContainerRef}>
-          <div className="search-content mb-4">
-            <Form.Control type="text" placeholder="Search bids — route, vendor, amount, status…" />
-            <i className="ri-search-line"></i>
+          <div className="d-flex mb-2 mb-lg-4 pb-1 pb-lg-0">
+            <div className="search-content flex-grow-1">
+              <Form.Control type="text" placeholder="Search bids — route, vendor, amount, status…" />
+              <i className="ri-search-line"></i>
+            </div>
+            <Dropdown drop="end">
+              <Dropdown.Toggle variant="primary" id="dropdown-basic" className="actdrop-btn">
+                <i className="ri-function-line me-1"></i> <span className="oebsw">Tools <i className="ri-arrow-down-s-line"></i></span>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="action-drops">
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('track')}><span className="acd-lft"><i className="ri-map-pin-line"></i> <span>Track</span></span><span className="acd-lst text-secondary">Track Shipments</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('demdet')}><span className="acd-lft"><i className="ri-calendar-line"></i> <span>DemDet</span></span><span className="acd-lst text-secondary">Manage DemDet</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('request')}><span className="acd-lft"><i className="ri-store-line"></i> <span>Request</span></span><span className="acd-lst text-secondary">New Request</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('protect')}><span className="acd-lft"><i className="ri-shield-line"></i> <span>Protect</span></span><span className="acd-lst text-secondary">Cargo Protect</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('manage')}><span className="acd-lft"><i className="ri-box-3-line"></i> <span>Manage</span></span><span className="acd-lst text-secondary">Manage Shipment</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item"><span className="acd-lft"><i className="ri-file-search-line"></i> <span>Verify</span></span><span className="acd-lst text-secondary">Document Integrity</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item"><span className="acd-lft"><i className="ri-file-text-line"></i> <span>eC82</span></span><span className="acd-lst text-secondary">Declaration Builder</span></Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
 
           {showShipments && <Shipments initialFilter={shipmentFilter} />}

@@ -35,6 +35,9 @@ const lastDate = (list) => {
 const everyContainerHas = (containers, key) =>
   containers.length > 0 && containers.every((c) => Boolean(c[key]));
 
+const countWith = (containers, key) =>
+  containers.filter((c) => Boolean(c[key])).length;
+
 /** Extracts the milestones the triggers depend on. */
 function getMilestones(shipment) {
   const containers = shipment?.details?.containerDetails || [];
@@ -44,9 +47,18 @@ function getMilestones(shipment) {
     discharged: everyContainerHas(containers, "discharge")
       ? lastDate(containers.map((c) => c.discharge))
       : null,
+    // First box on the ground: free time starts per container, so D&D exposure
+    // begins with the earliest discharge — not with the last one.
+    firstDischarge: firstDate(containers.map((c) => c.discharge)),
     collected: everyContainerHas(containers, "gateOut")
       ? lastDate(containers.map((c) => c.gateOut))
       : null,
+    returned: everyContainerHas(containers, "emptyReturned")
+      ? lastDate(containers.map((c) => c.emptyReturned))
+      : null,
+    containerCount: containers.length,
+    dischargedCount: countWith(containers, "discharge"),
+    returnedCount: countWith(containers, "emptyReturned"),
   };
 }
 
@@ -62,13 +74,25 @@ const fmtHours = (hours) => {
   return `${Math.round(hours / 24)} days`;
 };
 
+const plural = (count, word) => `${count} ${word}${count === 1 ? "" : "s"}`;
+
 /**
- * Returns the four trigger cards for a shipment.
+ * Returns the five trigger cards for a shipment.
  * state: "action" | "offer" | "waiting" | "expired"
  */
 export function getShipmentTriggers(shipment, now = new Date()) {
   const mode = shipment?.mode === "AIR" ? "AIR" : "OCEAN";
-  const { departed, arrived, discharged, collected } = getMilestones(shipment);
+  const {
+    departed,
+    arrived,
+    discharged,
+    firstDischarge,
+    collected,
+    returned,
+    containerCount,
+    dischargedCount,
+    returnedCount,
+  } = getMilestones(shipment);
   const windowHours = DELAY_INSURANCE_WINDOW_HOURS[mode];
   const triggers = [];
 
@@ -142,6 +166,58 @@ export function getShipmentTriggers(shipment, now = new Date()) {
       state: "expired",
       message: "The time period for eC82 submission has passed (cargo already discharged).",
       meta: `Eligible bracket: departure (${fmt(departed)}) → discharge (${fmt(discharged)}).`,
+    });
+  }
+
+  /* ------------------------------------------- Damage & Detention (D&D) ---- */
+  /* Fires on container discharge: that is the moment the carrier's free time
+     starts running, so demurrage (terminal) and detention (equipment) exposure
+     begins even before any invoice arrives. */
+  if (!firstDischarge) {
+    triggers.push({
+      key: "dem-det",
+      title: "Damage & Detention",
+      icon: "ri-calendar-line",
+      state: "waiting",
+      message:
+        "Damage & Detention tracking opens as soon as a container is discharged — free time is counted from the discharge date.",
+      meta: arrived
+        ? `Vessel arrived ${fmt(arrived)}; no container discharged yet. Keep the carrier's free days and daily rates at hand so the clock can be tracked from day one.`
+        : "Keep the carrier's free days and daily rates at hand so the clock can be tracked from day one.",
+    });
+  } else if (!returned) {
+    const sinceDischarge = (now - firstDischarge) / MS_HOUR;
+    triggers.push({
+      key: "dem-det",
+      title: "Damage & Detention",
+      icon: "ri-calendar-line",
+      state: "action",
+      message: `Free time has been running for ${fmtHours(
+        sinceDischarge,
+      )} since discharge — record the free days and daily rates so charges are caught before they are invoiced.`,
+      meta: `Discharged: ${dischargedCount} of ${plural(
+        containerCount,
+        "container",
+      )} since ${fmt(firstDischarge)}. Empties returned: ${returnedCount} of ${containerCount}. Demurrage runs discharge → gate out, detention gate out → empty returned.`,
+      cta: "Open D&D tool",
+      action: "dnd",
+      modalTab: "demdet",
+    });
+  } else {
+    triggers.push({
+      key: "dem-det",
+      title: "Damage & Detention",
+      icon: "ri-calendar-line",
+      state: "action",
+      message: `${plural(containerCount, "container")} discharged and ${
+        containerCount === 1 ? "the empty is" : "all empties are"
+      } back — check the final demurrage and detention charges before you settle them.`,
+      meta: `Charged window: discharge (${fmt(firstDischarge)}) → empty returned (${fmt(
+        returned,
+      )}). Disputes are easiest while the terminal records are still fresh.`,
+      cta: "Open D&D tool",
+      action: "dnd",
+      modalTab: "demdet",
     });
   }
 
