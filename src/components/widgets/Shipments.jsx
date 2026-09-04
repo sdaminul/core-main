@@ -962,13 +962,13 @@ function Shipments({ initialFilter = "ALL" }) {
                         <i className="ri-group-line"></i>
                         <span>Collaborators:</span>
                         <span className="border rounded px-2 py-0-5">
-                          <span className="text-secondary">Demo Shipper (you)</span> · Owner
+                          <span className="text-muted-foreground">Demo Shipper (you)</span> · Owner
                         </span>
                         <span className="border rounded px-2 py-0-5">
-                          <span className="text-secondary">abrar</span> · Can comment
+                          <span className="text-muted-foreground">abrar</span> · Can comment
                         </span>
                         <span className="border rounded px-2 py-0-5">
-                          <span className="text-secondary">Saif</span> · Can edit
+                          <span className="text-muted-foreground">Saif</span> · Can edit
                         </span>
                       </div>
                     </div>
@@ -977,7 +977,7 @@ function Shipments({ initialFilter = "ALL" }) {
                         <div className="d-flex align-items-start justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
-                              <span className="fw-medium text-secondary">Demo Shipper</span> · 8/20/2026, 7:49:01 PM
+                              <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/20/2026, 7:49:01 PM
                             </p>
                             <p className="mb-0 text-wrap" style={{ fontSize: '0.875rem' }}>
                               <span className="text-primary fw-medium">@abrar</span>
@@ -991,7 +991,7 @@ function Shipments({ initialFilter = "ALL" }) {
                         <div className="d-flex align-items-start justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
-                              <span className="fw-medium text-secondary">Saif</span> · 8/20/2026, 10:30:36 PM
+                              <span className="fw-medium text-muted-foreground">Saif</span> · 8/20/2026, 10:30:36 PM
                             </p>
                             <p className="mb-0 text-wrap" style={{ fontSize: '0.875rem' }}>
                               <span className="text-primary fw-medium">@abrar</span>
@@ -1005,7 +1005,7 @@ function Shipments({ initialFilter = "ALL" }) {
                         <div className="d-flex align-items-start justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
-                              <span className="fw-medium text-secondary">Demo Shipper</span> · 8/20/2026, 10:31:31 PM
+                              <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/20/2026, 10:31:31 PM
                             </p>
                             <p className="mb-0 text-wrap" style={{ fontSize: '0.875rem' }}>
                               <span className="text-primary fw-medium">@Saif</span>
@@ -1019,7 +1019,7 @@ function Shipments({ initialFilter = "ALL" }) {
                         <div className="d-flex align-items-start justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
-                              <span className="fw-medium text-secondary">Demo Shipper</span> · 8/24/2026, 8:01:28 AM
+                              <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/24/2026, 8:01:28 AM
                             </p>
                             <p className="mb-0 text-wrap" style={{ fontSize: '0.875rem' }}>
                               <span className="text-primary fw-medium">@abrar</span>
@@ -1054,7 +1054,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <i className="ri-file-excel-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
                           <div className="flex-grow-1 min-w-0">
                             <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-secondary">packing-list-demo.csv</span>
+                              <span className="fw-medium text-muted-foreground">packing-list-demo.csv</span>
                               <span class="tool-pill tool-pill-now ms-2">Packing List</span>
                             </p>
                             <p className="mb-0" style={{ fontSize: '0.75rem' }}>310 B · Demo Shipper · 9/2/2026, 8:48:28 AM</p>
@@ -1068,7 +1068,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <i className="ri-file-word-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
                           <div className="flex-grow-1 min-w-0">
                             <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-secondary">CORE_one-pager.docx</span>
+                              <span className="fw-medium text-muted-foreground">CORE_one-pager.docx</span>
                               <span class="tool-pill tool-pill-now ms-2">Certificate of Origin</span>
                             </p>
                             <p className="mb-0" style={{ fontSize: '0.75rem' }}>9 KB · Demo Shipper · 8/25/2026, 3:43:24 PM</p>
@@ -1082,7 +1082,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <i className="ri-file-word-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
                           <div className="flex-grow-1 min-w-0">
                             <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-secondary">CORE_one-pager.docx</span>
+                              <span className="fw-medium text-muted-foreground">CORE_one-pager.docx</span>
                             </p>
                             <p className="mb-0" style={{ fontSize: '0.75rem' }}>9 KB · Demo Shipper · 8/25/2026, 3:43:02 PM</p>
                           </div>
@@ -1095,7 +1095,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <i className="ri-file-pdf-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
                           <div className="flex-grow-1 min-w-0">
                             <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-secondary">packing-list-sample.pdf</span>
+                              <span className="fw-medium text-muted-foreground">packing-list-sample.pdf</span>
                               <span class="tool-pill tool-pill-now ms-2">Packing List</span>
                             </p>
                             <p className="mb-0" style={{ fontSize: '0.75rem' }}>439 B · Demo Shipper · 8/25/2026, 8:34:48 AM</p>
@@ -1110,7 +1110,7 @@ function Shipments({ initialFilter = "ALL" }) {
                           <i className="ri-file-pdf-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
                           <div className="flex-grow-1 min-w-0">
                             <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-secondary">sample-invoice.pdf</span>
+                              <span className="fw-medium text-muted-foreground">sample-invoice.pdf</span>
                             </p>
                             <p className="mb-0" style={{ fontSize: '0.75rem' }}>209 B · Demo Shipper · 8/24/2026, 5:18:50 PM</p>
                           </div>
@@ -1121,7 +1121,7 @@ function Shipments({ initialFilter = "ALL" }) {
                       </div>
                     </div>
                     <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
-                        <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>Up to 20 files, 4 MB each.</p>
+                        <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>Up to 20 files, 4 MB each.</p>
                         <div class="d-flex no-wrap">
                           <select className="form-select me-2">
                             <option>No tag</option>
@@ -1143,31 +1143,31 @@ function Shipments({ initialFilter = "ALL" }) {
                       <div className="row g-2 mb-4">
                         <div className="col-6 col-sm-3">
                           <div className="border rounded px-3 py-2">
-                            <p className="text-uppercase text-secondary mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Items</p>
+                            <p className="text-uppercase text-muted-foreground mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Items</p>
                             <p className="fw-semibold fs-6 mb-0" style={{ fontSize: '1rem' }}>3</p>
                           </div>
                         </div>
                         <div className="col-6 col-sm-3">
                           <div className="border rounded px-3 py-2">
-                            <p className="text-uppercase text-secondary mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Quantity</p>
+                            <p className="text-uppercase text-muted-foreground mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Quantity</p>
                             <p className="fw-semibold fs-6 mb-0" style={{ fontSize: '1rem' }}>6,800</p>
                           </div>
                         </div>
                         <div className="col-6 col-sm-3">
                           <div className="border rounded px-3 py-2">
-                            <p className="text-uppercase text-secondary mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Gross kg</p>
+                            <p className="text-uppercase text-muted-foreground mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Gross kg</p>
                             <p className="fw-semibold fs-6 mb-0" style={{ fontSize: '1rem' }}>846.5</p>
                           </div>
                         </div>
                         <div className="col-6 col-sm-3">
                           <div className="border rounded px-3 py-2">
-                            <p className="text-uppercase text-secondary mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Value</p>
+                            <p className="text-uppercase text-muted-foreground mb-0" style={{ fontSize: '0.6875rem', letterSpacing: '0.05em' }}>Value</p>
                             <p className="fw-semibold fs-6 mb-0" style={{ fontSize: '1rem' }}>USD 5,050.00</p>
                           </div>
                         </div>
                       </div>
                       <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
-                        <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>Packing-list lines for this shipment. Rows read from a file are suggestions — check them against the document.</p>
+                        <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>Packing-list lines for this shipment. Rows read from a file are suggestions — check them against the document.</p>
                         <div className="d-flex flex-wrap align-items-center gap-2">
                           <a href="#" className="btn btn-sm btn-dark" download><i className="ri-download-2-line me-1 align-middle"></i>Export CSV</a>
                           <button type="button" className="btn btn-sm btn-dark"><i className="ri-add-line me-1 align-middle"></i>Add item</button>
@@ -1190,19 +1190,19 @@ function Shipments({ initialFilter = "ALL" }) {
                           </thead>
                           <tbody>
                             <tr>
-                              <td className="px-3 py-2 align-top text-secondary">1</td>
+                              <td className="px-3 py-2 align-top text-muted-foreground">1</td>
                               <td className="px-3 py-2 align-top">
                                 <p className="fw-medium mb-0" style={{ fontSize: '0.875rem' }}>Cotton bath towels 70x140cm</p>
-                                <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>
+                                <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>
                                   <span class="tool-pill tool-pill-now me-1">HS 63026000</span>
                                   From packing-list-demo.csv · Demo Shipper
                                 </p>
                               </td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>1,200<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>40</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>480</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>512.5</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>USD 2,400.00</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>1,200<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>40</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>480</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>512.5</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>USD 2,400.00</td>
                               <td className="px-2 py-2 text-end align-top">
                                 <div className="d-flex justify-content-end gap-1">
                                   <button type="button" className="btn btn-sm btn-dark" title="Edit"><i className="ri-pencil-line"></i></button>
@@ -1211,19 +1211,19 @@ function Shipments({ initialFilter = "ALL" }) {
                               </td>
                             </tr>
                             <tr>
-                              <td className="px-3 py-2 align-top text-secondary">2</td>
+                              <td className="px-3 py-2 align-top text-muted-foreground">2</td>
                               <td className="px-3 py-2 align-top">
                                 <p className="fw-medium mb-0" style={{ fontSize: '0.875rem' }}>Microfibre cleaning cloths</p>
-                                <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>
+                                <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>
                                   <span class="tool-pill tool-pill-now me-1">HS 63026000</span>
                                   From packing-list-demo.csv · Demo Shipper
                                 </p>
                               </td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>5,000<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>25</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>210.5</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>230</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>USD 1,750.00</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>5,000<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>25</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>210.5</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>230</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>USD 1,750.00</td>
                               <td className="px-2 py-2 text-end align-top">
                                 <div className="d-flex justify-content-end gap-1">
                                   <button type="button" className="btn btn-sm btn-dark" title="Edit"><i className="ri-pencil-line"></i></button>
@@ -1232,19 +1232,19 @@ function Shipments({ initialFilter = "ALL" }) {
                               </td>
                             </tr>
                             <tr>
-                              <td className="px-3 py-2 align-top text-secondary">3</td>
+                              <td className="px-3 py-2 align-top text-muted-foreground">3</td>
                               <td className="px-3 py-2 align-top">
                                 <p className="fw-medium mb-0" style={{ fontSize: '0.875rem' }}>Kitchen aprons, printed</p>
-                                <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>
+                                <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>
                                   <span class="tool-pill tool-pill-now me-1">HS 63026000</span>
                                   From packing-list-demo.csv · Demo Shipper
                                 </p>
                               </td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>600<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>12</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>96</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>104</td>
-                              <td className="px-3 py-2 text-end align-top text-secondary" style={{ fontSize: '0.875rem' }}>USD 900.00</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>600<span className="text-muted ms-1" style={{ fontSize: '0.75rem' }}>PCS</span></td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>12</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>96</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>104</td>
+                              <td className="px-3 py-2 text-end align-top text-muted-foreground" style={{ fontSize: '0.875rem' }}>USD 900.00</td>
                               <td className="px-2 py-2 text-end align-top">
                                 <div className="d-flex justify-content-end gap-1">
                                   <button type="button" className="btn btn-sm btn-dark" title="Edit"><i className="ri-pencil-line"></i></button>
@@ -1256,7 +1256,7 @@ function Shipments({ initialFilter = "ALL" }) {
                         </table>
                       </div>
                       <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
-                        <p className="text-secondary mb-0" style={{ fontSize: '0.75rem' }}>3 of 500 items.</p>
+                        <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>3 of 500 items.</p>
                         <button type="button" className="btn btn-sm btn-dark">Clear list</button>
                       </div>
                     </div>
