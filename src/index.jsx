@@ -63,14 +63,14 @@ const PILLARS = [
   },
   {
     id: "shield",
-    name: "coreSHIELD",
+    name: "coreCover",
     icon: "ri-shield-check-line",
     desc: "Port to Door insurance coverage",
     quote: "Mitigate financial exposure from cargo risk, delays, and ancillary costs, with real time assessment and payout.",
   },
   {
     id: "split",
-    name: "coreSPLIT",
+    name: "coreIndex",
     icon: "ri-split-cells-horizontal",
     desc: "Master BL & inventory consolidation",
     quote: "Transform master bills of lading into shipment-level inventory intelligence and reporting.",
@@ -128,22 +128,52 @@ const CHECKS_TRACK = [
   "Delayed-shipment AI insights",
 ];
 
-const TRADITIONAL = [
-  "Quotes via email, days to respond",
-  "Tracking? Call your rep",
-  "Documents scattered in inboxes",
-  "Invoice surprises at the end",
-  "Updates when you ask for them",
-  "Your team left in the dark",
+// ─── Traditional vs CARGOVIS CORE — one row per pillar ───
+const COMPARISON = [
+  {
+    pillar: "coreINTEL",
+    traditional: "Tracking? Call your rep",
+    core: "Real-time container, port, and milestone visibility.",
+  },
+  {
+    pillar: "coreBID",
+    traditional: "Quotes via email, days to respond",
+    core: "Transparent, competitive freight and vendor bidding.",
+  },
+  {
+    pillar: "coreCover",
+    traditional: "Coverage sorted out after a loss",
+    core: "Port-to-door cover with real-time assessment and payout.",
+  },
+  {
+    pillar: "coreIndex",
+    traditional: "Master BLs split by hand",
+    core: "Master BLs turned into shipment-level inventory and reports.",
+  },
+  {
+    pillar: "coreCLEAR",
+    traditional: "Customs paperwork redone every time",
+    core: "Asycuda documents prepared and validated before submission.",
+  },
+  {
+    pillar: "coreSYNC",
+    traditional: "Your team left in the dark",
+    core: "Every stakeholder, document, and action connected.",
+  },
+  {
+    pillar: "coreAUDIT",
+    traditional: "Invoice surprises at the end",
+    core: "Rates, charges, and terms checked against the shipment record.",
+  },
+  {
+    pillar: "coreTRUST",
+    traditional: "Documents scattered in inboxes",
+    core: "Inconsistencies detected, data integrity strengthened.",
+  },
 ];
-const CARGOVIS = [
-  "Fast quotes, compare & book",
-  "Real-time tracking, always visible",
-  "Documents auto-generated & organized",
-  "Invoices matched to your quote",
-  "Proactive updates, no chasing",
-  "Your whole team in the loop",
-];
+
+const pillarIcon = (name) =>
+  PILLARS.find((p) => p.name === name)?.icon ?? "ri-checkbox-circle-line";
 
 // Ocean Carriers data
 const OCEAN_CARRIERS = [
@@ -682,7 +712,7 @@ export default function App() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="cv-badge glass"><BarChart3 size={14} color="#f97b3d" /> Rate intelligence</span>
+                <span className="cv-badge glass"><BarChart3 size={14} color="#f97b3d" /> coreBID</span>
                 <h2 className="cv-h2">Compare quotes<br /><span className="text-gradient">in one place.</span></h2>
                 <p className="cv-sublead" style={{ maxWidth: 480 }}>
                   Request a quote and quickly see rates across ocean, air, and land — all in one view.
@@ -823,7 +853,7 @@ export default function App() {
             transition={{ duration: 0.5 }}
           >
             <div className="cv-kicker">The comparison</div>
-            <h2 className="cv-h2">Why teams pick CargoVis</h2>
+            <h2 className="cv-h2">Why teams pick CORE</h2>
           </motion.div>
 
           <div className="compare-two">
@@ -834,16 +864,16 @@ export default function App() {
               transition={{ duration: 0.6 }}
             >
               <div className="text-center fw-semibold mb-4">TRADITIONAL</div>
-              {TRADITIONAL.map((texts, i) => (
-                <motion.div 
-                    key={texts}
+              {COMPARISON.map((row, i) => (
+                <motion.div
+                    key={row.pillar}
                     custom={i}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-20px" }}
                     variants={fadeUp}
                   >
-                  <div className="compare-item"><span><i className="ri-close-circle-line"></i></span> {texts}</div>
+                  <div className="compare-item"><span><i className="ri-close-circle-line"></i></span> {row.traditional}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -853,17 +883,20 @@ export default function App() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6 }}
             >
-              <div className="text-center fw-semibold text-primary mb-4">CARGOVIS</div>
-              {CARGOVIS.map((texts, i) => (
-                <motion.div 
-                    key={texts}
+              <div className="text-center fw-semibold text-primary mb-4">CORE</div>
+              {COMPARISON.map((row, i) => (
+                <motion.div
+                    key={row.pillar}
                     custom={i}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-20px" }}
                     variants={fadeUp}
                   >
-                  <div className="compare-item"><span><i className="ri-checkbox-circle-line"></i></span> {texts}</div>
+                  <div className="compare-item">
+                    <span><i className={pillarIcon(row.pillar)}></i></span>{" "}
+                    <strong>{row.pillar}</strong> {row.core}
+                  </div>
                 </motion.div>
               ))}
             </motion.div>

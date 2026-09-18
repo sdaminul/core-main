@@ -10,12 +10,24 @@ import ActionsModal from "../ui/ActionsModal";
 function Shipments({ initialFilter = "ALL" }) {
   const [show, setShow] = useState(false);
   const [selectedShipment, setSelectedShipment] = useState(null);
+  const [mapModalTab, setMapModalTab] = useState("tracking");
+  const [docTagFilter, setDocTagFilter] = useState("ALL");
   const mapModalClose = () => {
     setShow(false);
     setSelectedShipment(null);
+    setMapModalTab("tracking");
+    setDocTagFilter("ALL");
   };
   const mapModalShow = (shipment) => {
     setSelectedShipment(shipment);
+    setMapModalTab("tracking");
+    setDocTagFilter("ALL");
+    setShow(true);
+  };
+  const openDocumentsTab = (shipment) => {
+    setSelectedShipment(shipment);
+    setDocTagFilter("ALL");
+    setMapModalTab("documents");
     setShow(true);
   };
 
@@ -484,6 +496,11 @@ function Shipments({ initialFilter = "ALL" }) {
     return true;
   });
 
+  const filteredDocuments =
+    docTagFilter === "ALL"
+      ? SHIPMENT_DOCUMENTS
+      : SHIPMENT_DOCUMENTS.filter((doc) => doc.tag === docTagFilter);
+
   const toggleExpand = (id) => {
     setExpandedShipment(expandedShipment === id ? null : id);
   };
@@ -677,14 +694,6 @@ function Shipments({ initialFilter = "ALL" }) {
                               variant="dark" 
                               size="sm" 
                               className="expand-btn me-1"
-                              onClick={() => collaborationModalShow()}
-                            >
-                              <i className="ri-share-line"></i>
-                            </Button>
-                            <Button 
-                              variant="dark" 
-                              size="sm" 
-                              className="expand-btn me-1"
                             >
                               <i className="ri-notification-3-line"></i>
                             </Button>
@@ -696,12 +705,12 @@ function Shipments({ initialFilter = "ALL" }) {
                               <i className="ri-refresh-line"></i>
                             </Button>
                             <Button
-                                className="ask-ai"
-                                variant="outline-light"
+                                className="ask-ai expand-btn"
+                                variant="dark" 
                                 size="sm"
-                                onClick={() => openAction(shipment, "assistant", "Ask the assistant")}
+                                onClick={() => openAction(shipment, "assistant", "Ask the coreIQ")}
                               >
-                                <i className="ri-robot-2-line me-1"></i> <span>Ask the assistant</span>
+                                <i className="ri-robot-2-line me-1"></i> <span>Ask the coreIQ</span>
                             </Button>
                           </div>
                         </div>
@@ -867,6 +876,7 @@ function Shipments({ initialFilter = "ALL" }) {
                               toggleToolMap={toggleToolMap}
                               setToolFilter={setToolFilter}
                               openAction={openAction}
+                              onOpenDocuments={() => openDocumentsTab(shipment)}
                             />
                           </Card.Body>
                         </Card>
@@ -902,11 +912,12 @@ function Shipments({ initialFilter = "ALL" }) {
         <Modal.Body>
           {selectedShipment && (
             <Tabs
-              defaultActiveKey="tracking"
+              activeKey={mapModalTab}
+              onSelect={(key) => setMapModalTab(key || "tracking")}
               id="shipment-tabs"
               className="mb-3 gap-2 ship-details-modal"
             >
-              <Tab eventKey="tracking" title="Tracking Timeline">
+              <Tab eventKey="tracking" title="Timeline">
                 <Card className="mb-0">
                   <Card.Body className="pb-3 poueds">
                     <div className="page-title mt-0">
@@ -941,7 +952,7 @@ function Shipments({ initialFilter = "ALL" }) {
                   </Card.Body>
                 </Card>
               </Tab>
-              <Tab eventKey="map" title="Live Map">
+              <Tab eventKey="map" title="Map">
                 <Card className="mb-0">
                   <Card.Body>
                     <div className="page-title mt-0">
@@ -1045,87 +1056,85 @@ function Shipments({ initialFilter = "ALL" }) {
               <Tab eventKey="documents" title="Documents">
                 <Card className="mb-0">
                   <Card.Body>
-                    <div className="page-title mt-0">
+                    <div className="page-title mt-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
                       <h5 className="mb-0 fw-bold">Documents</h5>
+                      <div className="tool-legend">
+                        <button
+                          type="button"
+                          className={`tool-counter ${docTagFilter === "ALL" ? "is-active" : ""}`}
+                          onClick={() => setDocTagFilter("ALL")}
+                        >
+                          <span className="tool-pill tool-pill-aldoc">
+                            <i className="ri-file-pdf-line"></i> All Documents {SHIPMENT_DOCUMENTS.length}
+                          </span>
+                        </button>
+                        {Object.entries(DOC_TAG_META).map(([tag, meta]) => {
+                          const count = SHIPMENT_DOCUMENTS.filter((doc) => doc.tag === tag).length;
+                          return (
+                            <button
+                              key={tag}
+                              type="button"
+                              disabled={count === 0}
+                              className={`tool-counter ${docTagFilter === tag ? "is-active" : ""}`}
+                              onClick={() => {
+                                if (!count) return;
+                                setDocTagFilter((prev) => (prev === tag ? "ALL" : tag));
+                              }}
+                            >
+                              <span className="tool-pill tool-pill-now">
+                                <i className={meta.icon}></i> {tag} {count}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                     <div>
-                      <div className="d-flex align-items-center gap-2 border rounded p-3 mb-2 flex-wrap">
-                        <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                          <i className="ri-file-excel-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
-                          <div className="flex-grow-1 min-w-0">
-                            <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-muted-foreground">packing-list-demo.csv</span>
-                              <span class="tool-pill tool-pill-now ms-2">Packing List</span>
-                            </p>
-                            <p className="mb-0" style={{ fontSize: '0.75rem' }}>310 B · Demo Shipper · 9/2/2026, 8:48:28 AM</p>
+                      {filteredDocuments.map((doc) => (
+                        <div
+                          key={doc.id}
+                          className="d-flex align-items-center gap-2 border rounded p-3 mb-2 flex-wrap"
+                        >
+                          <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
+                            <i className={`${doc.icon} flex-shrink-0 text-primary`} style={{ fontSize: '1.25rem' }}></i>
+                            <div className="flex-grow-1 min-w-0">
+                              <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
+                                <span className="fw-medium text-muted-foreground">{doc.name}</span>
+                                <span className="tool-pill tool-pill-now ms-2">{doc.tag}</span>
+                              </p>
+                              <p className="mb-0" style={{ fontSize: '0.75rem' }}>
+                                {doc.size} · {doc.owner} · {doc.uploaded}
+                              </p>
+                            </div>
                           </div>
+                          {doc.viewable && (
+                            <button type="button" className="btn btn-sm btn-dark flex-shrink-0" title="View">
+                              <i className="ri-eye-line"></i>
+                            </button>
+                          )}
+                          <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download">
+                            <i className="ri-download-2-line"></i>
+                          </a>
+                          <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">
+                            Delete
+                          </button>
                         </div>
-                        <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download"><i className="ri-download-2-line"></i></a>
-                        <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">Delete</button>
-                      </div>
-                      <div className="d-flex align-items-center gap-2 border rounded p-3 mb-2 flex-wrap">
-                        <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                          <i className="ri-file-word-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
-                          <div className="flex-grow-1 min-w-0">
-                            <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-muted-foreground">CORE_one-pager.docx</span>
-                              <span class="tool-pill tool-pill-now ms-2">Certificate of Origin</span>
-                            </p>
-                            <p className="mb-0" style={{ fontSize: '0.75rem' }}>9 KB · Demo Shipper · 8/25/2026, 3:43:24 PM</p>
-                          </div>
+                      ))}
+
+                      {filteredDocuments.length === 0 && (
+                        <div className="no-results">
+                          <i className="ri-file-search-line"></i>
+                          <p>No documents with this tag</p>
                         </div>
-                        <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download"><i className="ri-download-2-line"></i></a>
-                        <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">Delete</button>
-                      </div>
-                      <div className="d-flex align-items-center gap-2 border rounded p-3 mb-2 flex-wrap">
-                        <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                          <i className="ri-file-word-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
-                          <div className="flex-grow-1 min-w-0">
-                            <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-muted-foreground">CORE_one-pager.docx</span>
-                            </p>
-                            <p className="mb-0" style={{ fontSize: '0.75rem' }}>9 KB · Demo Shipper · 8/25/2026, 3:43:02 PM</p>
-                          </div>
-                        </div>
-                        <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download"><i className="ri-download-2-line"></i></a>
-                        <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">Delete</button>
-                      </div>
-                      <div className="d-flex align-items-center gap-2 border rounded p-3 mb-2 flex-wrap">
-                        <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                          <i className="ri-file-pdf-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
-                          <div className="flex-grow-1 min-w-0">
-                            <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-muted-foreground">packing-list-sample.pdf</span>
-                              <span class="tool-pill tool-pill-now ms-2">Packing List</span>
-                            </p>
-                            <p className="mb-0" style={{ fontSize: '0.75rem' }}>439 B · Demo Shipper · 8/25/2026, 8:34:48 AM</p>
-                          </div>
-                        </div>
-                        <button type="button" className="btn btn-sm btn-dark flex-shrink-0" title="View"><i className="ri-eye-line"></i></button>
-                        <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download"><i className="ri-download-2-line"></i></a>
-                        <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">Delete</button>
-                      </div>
-                      <div className="d-flex align-items-center gap-2 border rounded p-3 flex-wrap">
-                        <div className="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                          <i className="ri-file-pdf-2-line flex-shrink-0 text-primary" style={{ fontSize: '1.25rem' }}></i>
-                          <div className="flex-grow-1 min-w-0">
-                            <p className="text-truncate mb-0" style={{ fontSize: '0.875rem' }}>
-                              <span className="fw-medium text-muted-foreground">sample-invoice.pdf</span>
-                            </p>
-                            <p className="mb-0" style={{ fontSize: '0.75rem' }}>209 B · Demo Shipper · 8/24/2026, 5:18:50 PM</p>
-                          </div>
-                        </div>
-                        <button type="button" className="btn btn-sm btn-dark flex-shrink-0" title="View"><i className="ri-eye-line"></i></button>
-                        <a href="#" className="btn btn-sm btn-dark flex-shrink-0" title="Download"><i className="ri-download-2-line"></i></a>
-                        <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0">Delete</button>
-                      </div>
+                      )}
                     </div>
                     <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
                         <p className="text-muted-foreground mb-0" style={{ fontSize: '0.75rem' }}>Up to 20 files, 4 MB each.</p>
                         <div class="d-flex no-wrap">
                           <select className="form-select me-2">
-                            <option>No tag</option>
-                            <option>Bill of Lading</option>
+                            {Object.keys(DOC_TAG_META).map((tag) => (
+                              <option key={tag}>{tag}</option>
+                            ))}
                           </select>
                           <button type="button" className="btn btn-primary"><i className="ri-upload-2-line"></i> Upload Document</button>
                         </div>
@@ -1461,6 +1470,69 @@ const STATE_PILL = {
   expired: "tool-pill tool-pill--void",
 };
 
+// Document tags double as filters on the Documents tab. "ALL" is the
+// "All Documents" pill, which behaves like a reset for the tag filter.
+const DOC_TAG_META = {
+  "Bill of Lading": { icon: "ri-file-text-line" },
+  "Packing List": { icon: "ri-file-list-3-line" },
+  "Certificate of Origin": { icon: "ri-award-line" },
+  Invoice: { icon: "ri-receipt-line" },
+  "No tag": { icon: "ri-price-tag-3-line" },
+};
+
+const SHIPMENT_DOCUMENTS = [
+  {
+    id: 1,
+    name: "packing-list-demo.csv",
+    icon: "ri-file-excel-2-line",
+    tag: "Packing List",
+    size: "310 B",
+    owner: "Demo Shipper",
+    uploaded: "9/2/2026, 8:48:28 AM",
+    viewable: false,
+  },
+  {
+    id: 2,
+    name: "CORE_one-pager.docx",
+    icon: "ri-file-word-2-line",
+    tag: "Certificate of Origin",
+    size: "9 KB",
+    owner: "Demo Shipper",
+    uploaded: "8/25/2026, 3:43:24 PM",
+    viewable: false,
+  },
+  {
+    id: 3,
+    name: "CORE_one-pager.docx",
+    icon: "ri-file-word-2-line",
+    tag: "No tag",
+    size: "9 KB",
+    owner: "Demo Shipper",
+    uploaded: "8/25/2026, 3:43:02 PM",
+    viewable: false,
+  },
+  {
+    id: 4,
+    name: "packing-list-sample.pdf",
+    icon: "ri-file-pdf-2-line",
+    tag: "Packing List",
+    size: "439 B",
+    owner: "Demo Shipper",
+    uploaded: "8/25/2026, 8:34:48 AM",
+    viewable: true,
+  },
+  {
+    id: 5,
+    name: "sample-invoice.pdf",
+    icon: "ri-file-pdf-2-line",
+    tag: "Invoice",
+    size: "209 B",
+    owner: "Demo Shipper",
+    uploaded: "8/24/2026, 5:18:50 PM",
+    viewable: true,
+  },
+];
+
 function ToolMapCard({
   shipment,
   tools,
@@ -1471,6 +1543,7 @@ function ToolMapCard({
   toggleToolMap,
   setToolFilter,
   openAction,
+  onOpenDocuments,
 }) {
   const isOpen = Boolean(openToolMaps[shipment.id]);
   const activeStatus = toolStatusFilter[shipment.id] || null;
@@ -1479,6 +1552,7 @@ function ToolMapCard({
     return acc;
   }, {});
   const rows = activeStatus ? tools.filter((tool) => tool.status === activeStatus) : tools;
+  const documentCount = SHIPMENT_DOCUMENTS.length;
 
   return (
     <>
@@ -1506,16 +1580,16 @@ function ToolMapCard({
 
         {/* Counters double as status filters */}
         <div className="tool-legend">
-          <span className="tool-counter">
-            <button
-              type="button"
-              className="tool-pill tool-pill-aldoc"
-            >
-              <span>
-                <i className="ri-file-pdf-line"></i> All Documents
-              </span>
-            </button>
-          </span>
+          <button
+            type="button"
+            className="tool-counter"
+            title="Open all documents for this shipment"
+            onClick={onOpenDocuments}
+          >
+            <span className="tool-pill tool-pill-aldoc">
+              <i className="ri-file-pdf-line"></i> All Documents {documentCount}
+            </span>
+          </button>
           {Object.entries(TOOL_STATUS_META).map(([key, meta]) => {
             const count = counts[key] || 0;
             return (

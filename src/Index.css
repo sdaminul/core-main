@@ -503,7 +503,8 @@ a { color: inherit; text-decoration: none; }
   color: var(--text);
 }
 .try-tab i {
-  margin-right: 6px;
+  margin-right: 8px;
+  font-size: 18px;
 }
 .try-tab.active {
   color: #fff;

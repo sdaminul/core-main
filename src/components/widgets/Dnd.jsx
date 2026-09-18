@@ -15,24 +15,24 @@ function Dnd() {
 		    	<div className="page-title mt-0">
 				  	<h5 className="mb-0 fw-bold">Demurrage & Detention</h5>
 			    </div>
-		      <Row>
-            <Col md={2}>
-            	<div className="card border-left-4 border-success p-3 bg-success bg-opacity-10"><small className="text-muted-foreground">Safe</small><h4 className="text-success mb-0 fw-bold">4</h4></div>
+		      <Row className="cus-key-card">
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-success p-2 p-md-3 mb-2 mb-md-3 bg-success bg-opacity-10"><small className="text-muted-foreground">Safe</small><h4 className="text-success mb-0 fw-bold">4</h4></div>
             </Col>
-            <Col md={2}>
-            	<div className="card border-left-4 border-warning p-3 bg-warning bg-opacity-10"><small className="text-muted-foreground">At Risk</small><h4 className="text-warning mb-0 fw-bold">0</h4></div>
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-warning p-2 p-md-3 mb-2 mb-md-3 bg-warning bg-opacity-10"><small className="text-muted-foreground">At Risk</small><h4 className="text-warning mb-0 fw-bold">0</h4></div>
         	</Col>
-            <Col md={2}>
-            	<div className="card border-left-4 border-danger p-3 bg-danger bg-opacity-10"><small className="text-muted-foreground">Demurrage</small><h4 className="text-danger mb-0 fw-bold">0</h4></div>
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-danger p-2 p-md-3 mb-2 mb-md-3 bg-danger bg-opacity-10"><small className="text-muted-foreground">Demurrage</small><h4 className="text-danger mb-0 fw-bold">0</h4></div>
             </Col>
-            <Col md={2}>
-            	<div className="card border-left-4 border-danger p-3 bg-danger bg-opacity-10"><small className="text-muted-foreground">Detention</small><h4 className="text-danger mb-0 fw-bold">0</h4></div>
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-danger p-2 p-md-3 mb-2 mb-md-3 bg-danger bg-opacity-10"><small className="text-muted-foreground">Detention</small><h4 className="text-danger mb-0 fw-bold">0</h4></div>
             </Col>
-            <Col md={2}>
-            	<div className="card border-left-4 border-info p-3 bg-info bg-opacity-10"><small className="text-muted-foreground">Returned</small><h4 className="text-info mb-0 fw-bold">0</h4></div>
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-info p-2 p-md-3 mb-2 mb-md-3 bg-info bg-opacity-10"><small className="text-muted-foreground">Returned</small><h4 className="text-info mb-0 fw-bold">0</h4></div>
             </Col>
-            <Col md={2}>
-            	<div className="card border-left-4 border-primary p-3 bg-primary bg-opacity-10"><small className="text-muted-foreground">Total Exposure</small><h4 className="text-primary mb-0 fw-bold">USD 0.00</h4></div>
+            <Col md={2} xs={4}>
+            	<div className="cus-key-card card border-left-4 border-primary p-2 p-md-3 mb-2 mb-md-3 bg-primary bg-opacity-10"><small className="text-muted-foreground">Total Exposure</small><h4 className="text-primary mb-0 fw-bold">$ 0.00</h4></div>
             </Col>
           </Row>
 

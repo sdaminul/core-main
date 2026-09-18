@@ -139,7 +139,7 @@ function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
 
               <div className="text-end mt-3">
                 <Button variant="primary px-4 py-2 me-2">Save Record</Button>
-                <Button variant="dark px-4 py-2">Full D&D Page</Button>
+                <Button variant="dark px-4 py-2" as={Link} to="/dashboard/demdet">Full D&D Page</Button>
               </div>
             </div>
           </div>
@@ -232,7 +232,7 @@ function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
             <div className="d-flex align-items-center mt-3">
               <Button variant="primary px-3"><i className="ri-send-plane-line align-middle me-1"></i> Submit Quick Request</Button>
               <div className="px-3 text-muted-foreground">or</div>
-              <Link to="/" className="text-primary">Online Form →</Link>
+              <Link to="/request-quote" className="text-primary">Online Form →</Link>
             </div>
             <div className="text-muted-foreground mt-2"><small>Full form lets you add cargo details, warehouse type, and transport routes.</small></div>
           </div>

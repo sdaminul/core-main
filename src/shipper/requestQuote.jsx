@@ -61,7 +61,7 @@ function RequestQuote() {
         {/* Page Title */}
         <div className="page-title">
           <h3>New Request</h3>
-          <Link to="/" className="btn btn-primary px-3">
+          <Link to="/dashboard" className="btn btn-primary px-3">
             <i className="ri-arrow-left-line"></i> Dashboard
           </Link>
         </div>

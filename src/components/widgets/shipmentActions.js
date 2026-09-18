@@ -206,7 +206,7 @@ export function getShipmentTriggers(shipment, now = new Date()) {
   } else {
     triggers.push({
       key: "dem-det",
-      title: "Damage & Detention",
+      title: "D&D",
       icon: "ri-calendar-line",
       state: "action",
       message: `${plural(containerCount, "container")} discharged and ${
