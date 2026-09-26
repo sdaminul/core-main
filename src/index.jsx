@@ -133,42 +133,42 @@ const COMPARISON = [
   {
     pillar: "coreINTEL",
     traditional: "Tracking? Call your rep",
-    core: "Real-time container, port, and milestone visibility.",
+    core: "Real-time visibility across containers, ports, and critical shipment milestones.",
   },
   {
     pillar: "coreBID",
     traditional: "Quotes via email, days to respond",
-    core: "Transparent, competitive freight and vendor bidding.",
+    core: "Objective freight procurement and vendor services through transparent, competitive bidding.",
   },
   {
     pillar: "coreCover",
     traditional: "Coverage sorted out after a loss",
-    core: "Port-to-door cover with real-time assessment and payout.",
+    core: "Mitigate financial exposure from cargo risk, delays, and ancillary costs, with real time assessment and payout.",
   },
   {
     pillar: "coreIndex",
     traditional: "Master BLs split by hand",
-    core: "Master BLs turned into shipment-level inventory and reports.",
+    core: "Transform master bills of lading into shipment-level inventory intelligence and reporting.",
   },
   {
     pillar: "coreCLEAR",
     traditional: "Customs paperwork redone every time",
-    core: "Asycuda documents prepared and validated before submission.",
+    core: "Prepare, validate, streamline and management of customs documentation before submission.",
   },
   {
     pillar: "coreSYNC",
     traditional: "Your team left in the dark",
-    core: "Every stakeholder, document, and action connected.",
+    core: "Connect every stakeholder, document, and action across the shipment lifecycle.",
   },
   {
     pillar: "coreAUDIT",
     traditional: "Invoice surprises at the end",
-    core: "Rates, charges, and terms checked against the shipment record.",
+    core: "Compare and validate rates, charges, and contractual terms against the shipment record.",
   },
   {
     pillar: "coreTRUST",
     traditional: "Documents scattered in inboxes",
-    core: "Inconsistencies detected, data integrity strengthened.",
+    core: "Detect document inconsistencies and strengthen data integrity across every shipment.",
   },
 ];
 
@@ -595,8 +595,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            8 pillars at the CORE of every shipment, 
-            <span className="text-gradient"> built into one platform</span>
+            8 pillars at the <span className="text-gradient">CORE</span> of every shipment
           </motion.h1>
 
           <motion.div 
@@ -605,7 +604,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <a className="btn btn-primary py-2 px-4" href="login">
+            <a className="btn btn-primary py-2 px-4" href="signup">
               Get Started <i className="ri-arrow-right-long-line"></i>
             </a>
             <a href="#try" className="btn-ghost btn-outline-primary">Try Now</a>
@@ -895,42 +894,13 @@ export default function App() {
                   >
                   <div className="compare-item">
                     <span><i className={pillarIcon(row.pillar)}></i></span>{" "}
-                    <strong>{row.pillar}</strong> {row.core}
+                    {row.core}
                   </div>
                 </motion.div>
               ))}
             </motion.div>
           </div>
           
-        </Container>
-      </section>
-
-      {/* ═══ FINAL CTA ═══ */}
-      <section className="cv-section" style={{ paddingTop: 40 }}>
-        <Container>
-          <motion.div 
-            className="cv-cta"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="cv-h2">Ready to modernize your freight ops?</h2>
-            <p className="cv-sublead mx-auto" style={{ maxWidth: 520 }}>
-              Join teams shipping smarter with CargoVis. Get started free — no credit card required.
-            </p>
-            <motion.div 
-              className="d-flex justify-content-center gap-2 mt-4 flex-wrap"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <a href="signup" className="btn btn-primary px-4 py-2 d-inline-flex align-items-center gap-2">
-                Create Free Account <ArrowRight size={16} />
-              </a>
-            </motion.div>
-          </motion.div>
         </Container>
       </section>
 

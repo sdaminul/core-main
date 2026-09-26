@@ -2508,6 +2508,27 @@ html.light-mode :not(.btn-check)+.btn-outline-light:active {
   .ask-ai i.me-1 {
     margin-right: 0px !important
   }
+  .noti-drop .btn-bell i {
+	    font-size: 16px;
+	}
+  .nav-link .btn-dark {
+	    min-width: 35px;
+	    min-height: 35px;
+	    max-width: 35px;
+	    max-height: 35px;
+    }
+    .nav-link-divi {
+    	margin: 0 4px;
+    }
+    .user-info .user-img {
+    	width: 35px;
+    }
+    .cv-orb.o3.glass {
+    	display: none;
+    }
+    .cv-stats {
+	    margin-top: 45px;
+	}
 }
 /* ===== eC82 Declaration Builder ===== */
 .ec82-page {
