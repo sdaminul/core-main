@@ -312,6 +312,11 @@ export default function App() {
   const [activePillar, setActivePillar] = useState(PILLARS[0].id);
   const [pillarAutoPlay, setPillarAutoPlay] = useState(true);
 
+  // Mobile sticky-bottom CTA: when .cv-hero-cta touches the navbar, pin it to bottom
+  const ctaWrapRef = useRef(null);
+  const [ctaStuck, setCtaStuck] = useState(false);
+  const [ctaPlaceholderH, setCtaPlaceholderH] = useState(0);
+
   const pillarIndex = Math.max(0, PILLARS.findIndex((p) => p.id === activePillar));
   const pillar = PILLARS[pillarIndex];
 
@@ -355,6 +360,46 @@ export default function App() {
     }, 4200);
     return () => clearInterval(id);
   }, [pillarAutoPlay]);
+
+  // Pin .cv-hero-cta to bottom on mobile once it touches the navbar
+  useEffect(() => {
+    let ticking = false;
+    const check = () => {
+      ticking = false;
+      if (!ctaWrapRef.current) return;
+      if (!window.matchMedia('(max-width: 575.98px)').matches) {
+        setCtaStuck(false);
+        return;
+      }
+      const navH = document.querySelector('nav.navbar')?.offsetHeight ?? 60;
+      const rect = ctaWrapRef.current.getBoundingClientRect();
+      // rect.top <= navH means the CTA has scrolled up and touched the navbar
+      const shouldStick = rect.top <= navH && window.scrollY > 10;
+      setCtaStuck((prev) => {
+        if (shouldStick && !prev) {
+          // reserve original space so hero doesn't jump when CTA becomes fixed
+          setCtaPlaceholderH(rect.height || ctaWrapRef.current.offsetHeight || 0);
+        }
+        return shouldStick;
+      });
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(check);
+      }
+    };
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // re-check after hero entrance animation / fonts settle
+    const t = setTimeout(check, 600);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      clearTimeout(t);
+    };
+  }, []);
 
   // Render content based on active tab
   const renderTabContent = () => {
@@ -598,8 +643,13 @@ export default function App() {
             8 pillars at the <span className="text-gradient">CORE</span> of every shipment
           </motion.h1>
 
-          <motion.div 
-            className="cv-hero-cta"
+          <div
+            ref={ctaWrapRef}
+            className="cv-hero-cta-wrap"
+            style={ctaStuck && ctaPlaceholderH ? { minHeight: ctaPlaceholderH } : undefined}
+          >
+          <motion.div
+            className={`cv-hero-cta${ctaStuck ? " is-stuck" : ""}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -610,6 +660,7 @@ export default function App() {
             <a href="#try" className="btn-ghost btn-outline-primary">Try Now</a>
             <Button className="btn-ghost">Watch demo</Button>
           </motion.div>
+          </div>
 
           {/* ── 8 PILLARS: console (icon nav + spotlight stage) ── */}
           <motion.div
@@ -855,7 +906,7 @@ export default function App() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="cv-footer">
+      <footer className={`cv-footer${ctaStuck ? " has-stuck-cta" : ""}`}>
         <Container className="d-flex flex-wrap justify-content-center align-items-center gap-3">
           <div>© {new Date().getFullYear()} 3pl3sixty LLC, Wyoming, 82801. All rights reserved.</div>
         </Container>

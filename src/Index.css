@@ -860,6 +860,27 @@ a { color: inherit; text-decoration: none; }
   .no-borders .nav-link-divi {
     margin: 0 3px;
   }
+  /* Sticky bottom CTA: pinned via .is-stuck once it touches the navbar on scroll */
+  .cv-hero-cta.is-stuck {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 95;
+    margin-top: 0;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(26, 33, 64, 0.92);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 0px 14px rgba(0, 0, 0, 0.05);
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .cv-footer.has-stuck-cta {
+    margin-bottom: 66px;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -902,6 +923,9 @@ html.light-mode .btn-ghost {
 }
 html.light-mode .btn-ghost:hover {
   background: var(--surface) !important;
+}
+html.light-mode #compare {
+  background: #F4F7FC;
 }
 html.light-mode #features,
 html.light-mode #try {
@@ -984,4 +1008,10 @@ html.light-mode .core-stage {
 }
 html.light-mode .pillar-rail-dot {
   background: #e2e8f2;
+}
+
+@media (max-width: 575.98px) {
+  html.light-mode .cv-hero-cta.is-stuck {
+    background: rgba(255, 255, 255, 0.94);
+  }
 }
