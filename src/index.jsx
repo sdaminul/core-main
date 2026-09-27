@@ -750,56 +750,6 @@ export default function App() {
         </Container>
       </section>
 
-      {/* ═══ TRACKING ═══ */}
-      <section id="tracking" className="cv-section">
-        <Container>
-          <Row className="align-items-center g-5">
-            <Col lg={6} className="order-2 order-lg-1">
-              <motion.div 
-                className="position-relative"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="mock-glow" />
-                <div className="position-relative">
-                  <Image src={Detail} alt="" className="sec-img" />
-                </div>
-              </motion.div>
-            </Col>
-            <Col lg={6} className="order-1 order-lg-2 ouerse">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-              >
-                <span className="cv-badge glass"><MapPin size={14} color="#f97b3d" /> Real-time visibility</span>
-                <h2 className="cv-h2">Every detail,<br /><span className="text-gradient">always visible.</span></h2>
-                <p className="cv-sublead" style={{ maxWidth: 480 }}>
-                  High-fidelity tracking that goes beyond push-to-port. See every milestone, every
-                  document exchange, and every ETA update — as it unfolds.
-                </p>
-                <motion.ul 
-                  className="list-unstyled mt-4"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                >
-                  {CHECKS_TRACK.map((item, i) => (
-                    <motion.li key={item} custom={i} variants={fadeUp} className="cv-check">
-                      <span className="cv-check-mark"><Check size={12} /></span>{item}
-                    </motion.li>
-                  ))}
-                </motion.ul>
-              </motion.div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
       {/* ═══ TRY IT ═══ */}
       <section id="try" className="cv-section">
         <Container style={{ maxWidth: 900 }}>

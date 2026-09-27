@@ -467,7 +467,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------- Try it ---------- */
-#try {
+#compare {
   background: #161a2c;
 }
 .try-tabs { 
@@ -840,6 +840,27 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+@media (max-width: 575.98px) {
+  .no-borders.navbar {
+    border-bottom: 0px !important;
+  }
+  .no-borders.navbar-expand .navbar-nav .nav-link {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-right: 0px;
+  }
+  .for-home {
+    border: 1px solid var(--cv-border-2);
+    border-radius: 22px;
+    margin: 4px 12px 0px 12px;
+  }
+  .no-borders.navbar {
+    padding-bottom: 0px;
+  }
+  .no-borders .nav-link-divi {
+    margin: 0 3px;
+  }
+}
 
 @media (max-width: 767.98px) {
   .try-tab span {
