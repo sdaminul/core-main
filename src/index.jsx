@@ -311,11 +311,8 @@ export default function App() {
   const [selectedCarrier, setSelectedCarrier] = useState("");
   const [activePillar, setActivePillar] = useState(PILLARS[0].id);
   const [pillarAutoPlay, setPillarAutoPlay] = useState(true);
-
-  // Mobile sticky-bottom CTA: when .cv-hero-cta touches the navbar, pin it to bottom
-  const ctaWrapRef = useRef(null);
-  const [ctaStuck, setCtaStuck] = useState(false);
-  const [ctaPlaceholderH, setCtaPlaceholderH] = useState(0);
+  const ctaRef = useRef(null);
+  const ctaSpacerRef = useRef(null);
 
   const pillarIndex = Math.max(0, PILLARS.findIndex((p) => p.id === activePillar));
   const pillar = PILLARS[pillarIndex];
@@ -349,6 +346,82 @@ export default function App() {
     };
   }, []);
 
+  // Any screen: when .cv-hero-cta touches the navbar on scroll,
+  // pin it fixed to the bottom.
+  useEffect(() => {
+    const cta = ctaRef.current;
+    if (!cta) return;
+    let originalTop = null;
+    let ticking = false;
+
+    const syncSpacer = (stuck) => {
+      const spacer = ctaSpacerRef.current;
+      if (!spacer) return;
+      if (stuck) {
+        spacer.style.display = 'block';
+        spacer.style.height = `${cta.offsetHeight}px`;
+      } else {
+        spacer.style.display = 'none';
+        spacer.style.height = '0px';
+      }
+    };
+
+    const measure = () => {
+      // Measure original document position only while inline (not stuck)
+      if (!cta.classList.contains('is-stuck-bottom')) {
+        originalTop = cta.getBoundingClientRect().top + window.scrollY;
+      }
+    };
+
+    const update = () => {
+      ticking = false;
+      if (originalTop === null) measure();
+      const navH = document.querySelector('nav.navbar')?.offsetHeight || 0;
+      const shouldStick = window.scrollY + navH >= (originalTop ?? Infinity);
+      const isStuck = cta.classList.contains('is-stuck-bottom');
+      if (shouldStick && !isStuck) {
+        cta.classList.add('is-stuck-bottom');
+        document.body.classList.add('has-stuck-cta');
+        syncSpacer(true);
+      } else if (!shouldStick && isStuck) {
+        cta.classList.remove('is-stuck-bottom');
+        document.body.classList.remove('has-stuck-cta');
+        syncSpacer(false);
+      } else if (shouldStick && isStuck) {
+        syncSpacer(true);
+      }
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    const onResize = () => {
+      if (!cta.classList.contains('is-stuck-bottom')) {
+        originalTop = null;
+        measure();
+      }
+      update();
+    };
+
+    measure();
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    // Re-measure after fonts/images settle (hero entrance animation)
+    const t = setTimeout(() => { originalTop = null; measure(); update(); }, 800);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      clearTimeout(t);
+      cta.classList.remove('is-stuck-bottom');
+      document.body.classList.remove('has-stuck-cta');
+    };
+  }, []);
+
   // Auto-rotate the pillar spotlight until the visitor takes over
   useEffect(() => {
     if (!pillarAutoPlay) return;
@@ -360,46 +433,6 @@ export default function App() {
     }, 4200);
     return () => clearInterval(id);
   }, [pillarAutoPlay]);
-
-  // Pin .cv-hero-cta to bottom on mobile once it touches the navbar
-  useEffect(() => {
-    let ticking = false;
-    const check = () => {
-      ticking = false;
-      if (!ctaWrapRef.current) return;
-      if (!window.matchMedia('(max-width: 575.98px)').matches) {
-        setCtaStuck(false);
-        return;
-      }
-      const navH = document.querySelector('nav.navbar')?.offsetHeight ?? 60;
-      const rect = ctaWrapRef.current.getBoundingClientRect();
-      // rect.top <= navH means the CTA has scrolled up and touched the navbar
-      const shouldStick = rect.top <= navH && window.scrollY > 10;
-      setCtaStuck((prev) => {
-        if (shouldStick && !prev) {
-          // reserve original space so hero doesn't jump when CTA becomes fixed
-          setCtaPlaceholderH(rect.height || ctaWrapRef.current.offsetHeight || 0);
-        }
-        return shouldStick;
-      });
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(check);
-      }
-    };
-    check();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    // re-check after hero entrance animation / fonts settle
-    const t = setTimeout(check, 600);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      clearTimeout(t);
-    };
-  }, []);
 
   // Render content based on active tab
   const renderTabContent = () => {
@@ -643,13 +676,10 @@ export default function App() {
             8 pillars at the <span className="text-gradient">CORE</span> of every shipment
           </motion.h1>
 
-          <div
-            ref={ctaWrapRef}
-            className="cv-hero-cta-wrap"
-            style={ctaStuck && ctaPlaceholderH ? { minHeight: ctaPlaceholderH } : undefined}
-          >
+          <div ref={ctaSpacerRef} aria-hidden="true" style={{ display: 'none' }} />
           <motion.div
-            className={`cv-hero-cta${ctaStuck ? " is-stuck" : ""}`}
+            ref={ctaRef}
+            className="cv-hero-cta"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -660,7 +690,6 @@ export default function App() {
             <a href="#try" className="btn-ghost btn-outline-primary">Try Now</a>
             <Button className="btn-ghost">Watch demo</Button>
           </motion.div>
-          </div>
 
           {/* ── 8 PILLARS: console (icon nav + spotlight stage) ── */}
           <motion.div
@@ -762,7 +791,7 @@ export default function App() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="cv-badge glass"><BarChart3 size={14} color="#f97b3d" /> coreBID</span>
+                <span className="cv-badge glass"><i class="ri-auction-line" style={{ color: "#f97b3d" }}></i> coreBID</span>
                 <h2 className="cv-h2">Compare quotes<br /><span className="text-gradient">in one place.</span></h2>
                 <p className="cv-sublead" style={{ maxWidth: 480 }}>
                   Request a quote and quickly see rates across ocean, air, and land — all in one view.
@@ -906,7 +935,7 @@ export default function App() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className={`cv-footer${ctaStuck ? " has-stuck-cta" : ""}`}>
+      <footer className="cv-footer">
         <Container className="d-flex flex-wrap justify-content-center align-items-center gap-3">
           <div>© {new Date().getFullYear()} 3pl3sixty LLC, Wyoming, 82801. All rights reserved.</div>
         </Container>
