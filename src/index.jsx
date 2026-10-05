@@ -379,15 +379,19 @@ export default function App() {
       const navH = document.querySelector('nav.navbar')?.offsetHeight || 0;
       const shouldStick = window.scrollY + navH >= (originalTop ?? Infinity);
       const isStuck = cta.classList.contains('is-stuck-bottom');
+      const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
       if (shouldStick && !isStuck) {
         cta.classList.add('is-stuck-bottom');
+        cta.classList.toggle('container', !isMobile);
         document.body.classList.add('has-stuck-cta');
         syncSpacer(true);
       } else if (!shouldStick && isStuck) {
-        cta.classList.remove('is-stuck-bottom');
+        cta.classList.remove('is-stuck-bottom', 'container');
         document.body.classList.remove('has-stuck-cta');
         syncSpacer(false);
       } else if (shouldStick && isStuck) {
+        // Keep container only on desktop, full-width on mobile
+        cta.classList.toggle('container', !isMobile);
         syncSpacer(true);
       }
     };
@@ -417,7 +421,7 @@ export default function App() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
       clearTimeout(t);
-      cta.classList.remove('is-stuck-bottom');
+      cta.classList.remove('is-stuck-bottom', 'container');
       document.body.classList.remove('has-stuck-cta');
     };
   }, []);

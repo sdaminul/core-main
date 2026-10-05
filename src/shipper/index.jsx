@@ -119,12 +119,12 @@ function Shipper() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="action-drops">
-                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('track')}><span className="acd-lft"><i className="ri-map-pin-line"></i> <span>Track</span></span><span className="acd-lst text-secondary">Track Shipments</span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('request')}><span className="acd-lft"><i className="ri-store-line"></i> <span>Request</span></span><span className="acd-lst text-secondary">New Request</span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('protect')}><span className="acd-lft"><i className="ri-shield-line"></i> <span>Protect</span></span><span className="acd-lst text-secondary">Cargo Protect</span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('manage')}><span className="acd-lft"><i className="ri-box-3-line"></i> <span>Manage</span></span><span className="acd-lst text-secondary">Manage Shipment</span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" as={Link} to="/dashboard/integrity"><span className="acd-lft"><i className="ri-file-search-line"></i> <span>Verify</span></span><span className="acd-lst text-secondary">Document Integrity</span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" as={Link} to="/dashboard/ec82"><span className="acd-lft"><i className="ri-file-text-line"></i> <span>eC82</span></span><span className="acd-lst text-secondary">Declaration Builder</span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('track')}><span className="acd-lft"><i className="ri-radar-line"></i> <span>Intel</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('request')}><span className="acd-lft"><i className="ri-auction-line"></i> <span>Bid</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('protect')}><span className="acd-lft"><i className="ri-shield-check-line"></i> <span>Cover</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('manage')}><span className="acd-lft"><i className="ri-split-cells-horizontal"></i> <span>Index</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" as={Link} to="/dashboard/integrity"><span className="acd-lft"><i className="ri-fingerprint-line"></i> <span>Trust</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" as={Link} to="/dashboard/ec82"><span className="acd-lft"><i className="ri-file-check-line"></i> <span>Clear</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

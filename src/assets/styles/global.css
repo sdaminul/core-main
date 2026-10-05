@@ -814,7 +814,7 @@ html.light-mode .ico-cont svg path{
   padding-right: 15px;
 }
 .action-drops {
-  min-width: 210px;
+  min-width: 140px; /*210*/
   top: 47px !important;
 }
 .actdrop-btn.dropdown-toggle::after {

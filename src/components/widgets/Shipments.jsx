@@ -710,7 +710,7 @@ function Shipments({ initialFilter = "ALL" }) {
                                 size="sm"
                                 onClick={() => openAction(shipment, "assistant", "Ask the coreIQ")}
                               >
-                                <i className="ri-robot-2-line me-1"></i> <span>Ask the coreIQ</span>
+                                <i className="ri-robot-2-line"></i>
                             </Button>
                           </div>
                         </div>
