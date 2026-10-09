@@ -80,6 +80,22 @@ function Shipper() {
     setModalShow(true);
   };
 
+  // Tools > Index: open the Shipments Live Map modal for a shipment.
+  // Shipper has no shipment in scope, so ensure the list is visible
+  // then ask Shipments (via event) to open its modal.
+  const openIndexMap = () => {
+    setVisibleComponent('shipments');
+    setTimeout(() => {
+      if (componentContainerRef.current) {
+        componentContainerRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      window.dispatchEvent(new CustomEvent('open-shipment-map'));
+    }, 100);
+  };
+
   return (
     <>
       <div className="container">
@@ -122,7 +138,7 @@ function Shipper() {
                 <Dropdown.Item className="acd-item" onClick={() => handleActionClick('track')}><span className="acd-lft"><i className="ri-radar-line"></i> <span>Intel</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
                 <Dropdown.Item className="acd-item" onClick={() => handleActionClick('request')}><span className="acd-lft"><i className="ri-auction-line"></i> <span>Bid</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
                 <Dropdown.Item className="acd-item" onClick={() => handleActionClick('protect')}><span className="acd-lft"><i className="ri-shield-check-line"></i> <span>Cover</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
-                <Dropdown.Item className="acd-item" onClick={() => handleActionClick('manage')}><span className="acd-lft"><i className="ri-split-cells-horizontal"></i> <span>Index</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
+                <Dropdown.Item className="acd-item" onClick={openIndexMap}><span className="acd-lft"><i className="ri-split-cells-horizontal"></i> <span>Index</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
                 <Dropdown.Item className="acd-item" as={Link} to="/dashboard/integrity"><span className="acd-lft"><i className="ri-fingerprint-line"></i> <span>Trust</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
                 <Dropdown.Item className="acd-item" as={Link} to="/dashboard/ec82"><span className="acd-lft"><i className="ri-file-check-line"></i> <span>Clear</span></span><span className="acd-lst text-secondary"></span></Dropdown.Item>
               </Dropdown.Menu>

@@ -5,6 +5,14 @@ import { Link } from 'react-router-dom';
 function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
   const key = activeTab;
 
+  const titles = {
+    track: 'Create a Shipment',
+    demdet: 'D&D',
+    request: 'Request for Services',
+    protect: 'Protect',
+    manage: 'Manage',
+  };
+
   const [direction, setDirection] = useState('IMPORT');
 
   const handleTabChange = (tab) => {
@@ -48,7 +56,7 @@ function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter" className="fw-bold">
-          <i className={`ri-${key === 'track' ? 'map-pin' : key === 'demdet' ? 'calendar' : key === 'request' ? 'store' : key === 'protect' ? 'shield' : 'box-3'}-line fw-medium me-1`}></i> {key.charAt(0).toUpperCase() + key.slice(1)}
+          <i className={`ri-${key === 'track' ? 'radar' : key === 'demdet' ? 'calendar' : key === 'request' ? 'store' : key === 'protect' ? 'shield' : 'box-3'}-line fw-medium me-1`}></i> {titles[key] || (key.charAt(0).toUpperCase() + key.slice(1))}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -58,7 +66,7 @@ function ActionsModal({ activeTab = 'track', shipment = null, ...rest }) {
               <div className="mb-3">Search by Container, BL/Booking, or AWB.</div>
               <div className="d-flex">
                 <Form.Control className="py-2" type="text" placeholder="Enter reference number...." />
-                <button className="btn btn-primary w-nowrap ms-2 py-2 px-4"><i className="ri-route-fill"></i> Track</button>
+                <button className="btn btn-primary w-nowrap ms-2 py-2 px-4">Create</button>
               </div>
               <div className="text-danger fw-bold mt-3">Previously checked — subscribe for live tracking + alerts</div>
             </div>

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button, ProgressBar, Row, Col, Card, Modal, Table, Tabs, Tab, Badge, Collapse, OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import {
   getShipmentTriggers,
@@ -24,6 +24,19 @@ function Shipments({ initialFilter = "ALL" }) {
     setDocTagFilter("ALL");
     setShow(true);
   };
+  // Dashboard Tools > Index opens this Live Map modal for a shipment
+  // via window event (Shipper has no shipment in scope).
+  useEffect(() => {
+    const handler = (e) => {
+      const id = e?.detail?.shipmentId;
+      const target = id
+        ? shipmentsData.find((s) => s.id === id)
+        : shipmentsData[0];
+      if (target) mapModalShow(target);
+    };
+    window.addEventListener("open-shipment-map", handler);
+    return () => window.removeEventListener("open-shipment-map", handler);
+  }, []);
   const openDocumentsTab = (shipment) => {
     setSelectedShipment(shipment);
     setDocTagFilter("ALL");
@@ -664,54 +677,84 @@ function Shipments({ initialFilter = "ALL" }) {
                             <span className="container-info">{shipment.containers} container{shipment.containers > 1 ? 's' : ''} in this shipment</span>
                           </div>
                           <div className="d-flex">
-                            <Button
-                              variant="dark"
-                              size="sm"
-                              className="expand-btn me-1 ico-cont"
-                              onClick={() => handleActionClick('demdet', shipment)}
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-demdet">D&D</Tooltip>}
                             >
-                              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                                <path d="M3 19H21M3 5H21M4 5V19M20 5V19M8 8.5V15.5M16 8.5V15.5M12 8.5V15.5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                              </svg>
-                            </Button>
-                            <Button 
-                              variant="dark" 
-                              size="sm" 
-                              className="expand-btn me-1" 
-                              onClick={() => mapModalShow(shipment)}
-                            >
-                              <i className="ri-map-2-line"></i>
-                            </Button>
-                            <Button 
-                              variant="dark" 
-                              size="sm" 
-                              className="expand-btn me-1"
-                              onClick={() => collaborationModalShow()}
-                            >
-                              <i className="ri-user-add-line"></i>
-                            </Button>
-                            <Button 
-                              variant="dark" 
-                              size="sm" 
-                              className="expand-btn me-1"
-                            >
-                              <i className="ri-notification-3-line"></i>
-                            </Button>
-                            <Button 
-                              variant="dark" 
-                              size="sm" 
-                              className="expand-btn me-1"
-                            >
-                              <i className="ri-refresh-line"></i>
-                            </Button>
-                            <Button
-                                className="ask-ai expand-btn"
-                                variant="dark" 
+                              <Button
+                                variant="dark"
                                 size="sm"
-                                onClick={() => openAction(shipment, "assistant", "Ask the coreIQ")}
+                                className="expand-btn me-1 ico-cont"
+                                onClick={() => handleActionClick('demdet', shipment)}
                               >
-                                <i className="ri-robot-2-line"></i>
-                            </Button>
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                                  <path d="M3 19H21M3 5H21M4 5V19M20 5V19M8 8.5V15.5M16 8.5V15.5M12 8.5V15.5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-tracking">Live Map & Tracking</Tooltip>}
+                            >
+                              <Button 
+                                variant="dark" 
+                                size="sm" 
+                                className="expand-btn me-1" 
+                                onClick={() => mapModalShow(shipment)}
+                              >
+                                <i className="ri-map-2-line"></i>
+                              </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-share">Share shipment</Tooltip>}
+                            >
+                              <Button 
+                                variant="dark" 
+                                size="sm" 
+                                className="expand-btn me-1"
+                                onClick={() => collaborationModalShow()}
+                              >
+                                <i className="ri-user-add-line"></i>
+                              </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-noti">Notification</Tooltip>}
+                            >
+                              <Button 
+                                variant="dark" 
+                                size="sm" 
+                                className="expand-btn me-1"
+                              >
+                                <i className="ri-notification-3-line"></i>
+                              </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-refresh">Refresh</Tooltip>}
+                            >
+                              <Button 
+                                variant="dark" 
+                                size="sm" 
+                                className="expand-btn me-1"
+                              >
+                                <i className="ri-refresh-line"></i>
+                              </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                              placement="top"
+                              overlay={<Tooltip id="tooltip-ask-coreiq">Ask the coreIQ</Tooltip>}
+                            >
+                              <Button
+                                  className="ask-ai expand-btn"
+                                  variant="dark"
+                                  size="sm"
+                                  onClick={() => openAction(shipment, "assistant", "Ask the coreIQ")}
+                                >
+                                  <i className="ri-robot-2-line"></i>
+                              </Button>
+                            </OverlayTrigger>
                           </div>
                         </div>
 
@@ -985,7 +1028,7 @@ function Shipments({ initialFilter = "ALL" }) {
                     </div>
                     <div className="mb-3">
                       <div className="border rounded p-3 mb-2">
-                        <div className="d-flex align-items-start justify-content-between">
+                        <div className="d-flex align-items-center justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
                               <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/20/2026, 7:49:01 PM
@@ -995,11 +1038,14 @@ function Shipments({ initialFilter = "ALL" }) {
                               <span> can you confirm the new mention emails land correctly?</span>
                             </p>
                           </div>
-                          <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-3">Delete</button>
+                          <div className="d-flex">
+                            <button type="button" className="btn btn-sm btn-outline-info flex-shrink-0 ms-3">Reply</button>
+                            <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-1">Delete</button>
+                          </div>
                         </div>
                       </div>
                       <div className="border rounded p-3 mb-2">
-                        <div className="d-flex align-items-start justify-content-between">
+                        <div className="d-flex align-items-center justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
                               <span className="fw-medium text-muted-foreground">Saif</span> · 8/20/2026, 10:30:36 PM
@@ -1009,11 +1055,14 @@ function Shipments({ initialFilter = "ALL" }) {
                               <span> looks good.</span>
                             </p>
                           </div>
-                          <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-3">Delete</button>
+                          <div className="d-flex">
+                            <button type="button" className="btn btn-sm btn-outline-info flex-shrink-0 ms-3">Reply</button>
+                            <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-1">Delete</button>
+                          </div>
                         </div>
                       </div>
                       <div className="border rounded p-3 mb-2">
-                        <div className="d-flex align-items-start justify-content-between">
+                        <div className="d-flex align-items-center justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
                               <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/20/2026, 10:31:31 PM
@@ -1023,11 +1072,14 @@ function Shipments({ initialFilter = "ALL" }) {
                               <span> test email template</span>
                             </p>
                           </div>
-                          <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-3">Delete</button>
+                          <div className="d-flex">
+                            <button type="button" className="btn btn-sm btn-outline-info flex-shrink-0 ms-3">Reply</button>
+                            <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-1">Delete</button>
+                          </div>
                         </div>
                       </div>
-                      <div className="border rounded p-2">
-                        <div className="d-flex align-items-start justify-content-between">
+                      <div className="border rounded p-3">
+                        <div className="d-flex align-items-center justify-content-between">
                           <div className="flex-grow-1">
                             <p className="text-muted mb-1" style={{ fontSize: '0.75rem' }}>
                               <span className="fw-medium text-muted-foreground">Demo Shipper</span> · 8/24/2026, 8:01:28 AM
@@ -1037,7 +1089,10 @@ function Shipments({ initialFilter = "ALL" }) {
                               <span> dark mode test - this mention email should now be readable in dark and light mode, with the Go to conversation button</span>
                             </p>
                           </div>
-                          <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-3">Delete</button>
+                          <div className="d-flex">
+                            <button type="button" className="btn btn-sm btn-outline-info flex-shrink-0 ms-3">Reply</button>
+                            <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0 ms-1">Delete</button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1580,6 +1635,16 @@ function ToolMapCard({
 
         {/* Counters double as status filters */}
         <div className="tool-legend">
+          {activeStatus && (
+            <Button
+              size="sm"
+              className="cus-cfilter"
+              variant="outline-light"
+              onClick={() => setToolFilter(shipment.id, activeStatus)}
+            >
+              Clear filter
+            </Button>
+          )}
           <button
             type="button"
             className="tool-counter"
@@ -1666,16 +1731,6 @@ function ToolMapCard({
               })}
             </tbody>
           </Table>
-          {activeStatus && (
-            <Button
-              size="sm"
-              variant="outline-light"
-              className="mt-2"
-              onClick={() => setToolFilter(shipment.id, activeStatus)}
-            >
-              Clear filter
-            </Button>
-          )}
         </div>
       </Collapse>
     </>

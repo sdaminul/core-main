@@ -877,9 +877,13 @@ html.light-mode .cv-hero-cta.is-stuck-bottom {
     padding-right: 0px;
   }
   .for-home {
-    border: 1px solid var(--cv-border-2);
+    border: 1px solid var(--cv-border-3);
     border-radius: 22px;
     margin: 4px 12px 0px 12px;
+    background: #1a2140;
+  }
+  html.light-mode .for-home {
+    background: #fff !important;
   }
   .no-borders.navbar {
     padding-bottom: 0px;
@@ -893,7 +897,7 @@ html.light-mode .cv-hero-cta.is-stuck-bottom {
     gap: 8px;
     margin: 12px 12px 8px 12px;
     border-radius: 20px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--cv-border-3);
   }
   .cv-orb {
     display: none;
@@ -925,7 +929,7 @@ html.light-mode .cv-hero-cta.is-stuck-bottom {
   nav.no-borders.navbar {
     padding: 0px;
     border: 0px;
-    background: #1a2140a6 !important;
+    background: transparent !important;
     -webkit-backdrop-filter: blur(20px) !important;
     backdrop-filter: blur(20px) !important;
   }
@@ -933,13 +937,13 @@ html.light-mode .cv-hero-cta.is-stuck-bottom {
     border: 1px solid var(--cv-border-3);
     border-radius: 22px;
     margin-top: 12px;
-    background-color: #ffffff0d;
+    background-color: #1a2140a6;
   }
   html.light-mode .no-borders .for-home.w-100 .container {
     background-color: #ffffff;
   }
   html.light-mode .home nav.navbar {
-    background: #fff !important;
+    background: transparent !important;
   }
 }
 
@@ -961,7 +965,9 @@ html.light-mode {
   --shadow-elev: 0 30px 80px -30px rgba(30, 41, 59, 0.22), 0 8px 24px -12px rgba(30, 41, 59, 0.12);
 }
 html.light-mode .home nav.navbar {
-  background: #fff;
+  background: transparent;
+  backdrop-filter: unset !important;
+  -webkit-backdrop-filter: unset !important;
 }
 html.light-mode .glass {
   background: rgba(255, 255, 255, 0.72);
